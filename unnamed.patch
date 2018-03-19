@@ -1,0 +1,3885 @@
+Index: out/production/resources/ValidationMessages_zh_CN.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- out/production/resources/ValidationMessages_zh_CN.properties	(revision )
++++ out/production/resources/ValidationMessages_zh_CN.properties	(revision )
+@@ -0,0 +1,1 @@
++javax.validation.constraints.Size.message        = xxxxxxxxx{min}~~~~~{max}
+Index: src/main/java/springboot/nf/book/service/mail/service/MailServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/mail/service/MailServiceImpl.java	(revision )
++++ src/main/java/springboot/nf/book/service/mail/service/MailServiceImpl.java	(revision )
+@@ -0,0 +1,29 @@
++package springboot.nf.book.service.mail.service;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.mail.MailSender;
++import org.springframework.mail.SimpleMailMessage;
++import org.springframework.stereotype.Service;
++
++@Service //简单方式发送邮件
++public class MailServiceImpl implements MailService {
++
++    @Autowired
++    private MailSender mailSender;//MailSender邮件发送类
++
++    @Override
++    public String sendSimple(String to, String what) {
++
++        SimpleMailMessage message =  new SimpleMailMessage();
++        message.setSubject("主题，就是邮件的标题");
++        message.setText(what);
++        message.setTo(to);
++        mailSender.send(message);
++
++        return "succsful";
++    }
++    @Override
++    public String sendComlex(String to, String what) {
++        return null;
++    }
++}
+Index: src/main/java/springboot/nf/book/web/TestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/web/TestController.java	(revision )
++++ src/main/java/springboot/nf/book/web/TestController.java	(revision )
+@@ -0,0 +1,20 @@
++package springboot.nf.book.web;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Controller;
++import org.springframework.web.bind.annotation.RequestMapping;
++import springboot.nf.book.service.mail.service.MailService;
++
++@Controller
++public class TestController {
++
++    @Autowired
++    private MailService mailService;
++
++    @RequestMapping("/send")
++    public String test(){
++        mailService.sendSimple("1519792930@qq.com","你吃了吗？");
++        return "successful";
++    }
++
++}
+Index: src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- src/main/resources/application.properties	(revision )
++++ src/main/resources/application.properties	(revision )
+@@ -0,0 +1,49 @@
++#设置服务端口
++server.port=8888
++
++#------MySQL数据库设置----------------------------------------------------------------------
++##设置数据库连接地址
++spring.datasource.url=jdbc:mysql://localhost:3306/sb
++##设置数据库用户名登录
++spring.datasource.username=root
++##设置数据库用户密码
++spring.datasource.password=root
++##加载数据库驱动
++spring.datasource.driver-class-name=com.mysql.jdbc.Driver
++
++#设置jpa语法为显示sql
++spring.jpa.show-sql=true
++#设置jpa语法为自动
++spring.jpa.hibernate.ddl-auto=update
++#--end----MySQL数据库设置----------------------------------------------------------------------
++
++#设置thymeleaf模版为HTML
++spring.thymeleaf.mode=html
++#设置thymeleaf缓存为关闭
++spring.thymeleaf.cache=false
++
++#---------邮件配置----------------------------------------------------------------
++#设置字符编码
++spring.messages.encoding=GBK
++
++spring.mail.host=smtp.163.com
++
++spring.mail.username=150xxxxxx72@163.com
++
++spring.mail.password=xiaoshuxxxxx
++
++spring.mail.properties.ssl=true
++
++#------sms短信设置-----美盛云短信-----------------------------------------------------------------
++    #sms.meisheng.url=
++    #sms.meisheng.sid=
++    #sms.meisheng.apikey=
++    #sms.meisheng.extno=
++    #sms.meisheng.encode=
++#----云之讯短信模板---------------------------------------------------------------------------------
++sms.meisheng.url=https://open.ucpaas.com/ol/sms/{function}
++sms.meisheng.sid=948de1xxxx31XXXX402XXXXc67XXXe8f5739c8
++sms.meisheng.appid=e78axxxxf9ae4ccxxxx4ffxxxxb5c5c9
++sms.meisheng.apikey=fxxxx629xxxxe8xxxx6xxxx8b87xxxxe
++sms.meisheng.extno=2xxxx9
++sms.meisheng.encode=utf-8
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/web/SenderTestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/web/SenderTestController.java	(revision )
++++ src/main/java/springboot/nf/book/web/SenderTestController.java	(revision )
+@@ -0,0 +1,20 @@
++package springboot.nf.book.web;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Controller;
++import org.springframework.web.bind.annotation.GetMapping;
++import springboot.nf.book.service.SMSService;
++
++@Controller
++public class SenderTestController {
++
++    @Autowired
++    private SMSService smsService;
++
++    @GetMapping("/sms")
++    public String tosms(){
++        smsService.send("13192276358","1515",1);
++        return "vue/index";
++    }
++
++}
+Index: out/production/resources/templates/book/update.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- out/production/resources/templates/book/update.html	(revision )
++++ out/production/resources/templates/book/update.html	(revision )
+@@ -0,0 +1,40 @@
++<!DOCTYPE html>
++<html lang="en" xmlns:th="http://www.thyemleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++      layout:decorate="layout/book">
++<head>
++    <meta charset="UTF-8">
++    <title>Title</title>
++</head>
++<div layout:fragment="content">
++    <form th:action="@{/book/update}" method="post" th:object="${book}">
++        <input type="hidden" name="id" th:value="*{id}">
++
++        <div class="form-group">
++            <label for="name">书名</label>
++            <input class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid">
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
++        </div>
++
++        <div class="form-group">
++            <label for="price">价格</label>
++            <input class="form-control" id="price" th:field="*{price}" th:errorclass="is-invalid">
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
++        </div>
++
++        <div class="form-group">
++            <label for="author">作者</label>
++            <select class="form-control" id="author" th:field="*{author}" th:errorclass="is-invalid">
++                <option value="-1">请选择</option>
++                <option th:each="author:${authors}"
++                         th:value="${author.id}"
++                         th:text="${author.name}">作者</option>
++            </select>
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errorclass="in-invalid"></div>
++        </div>
++
++        <button type="submit" class="btn btn-dark">保存更改</button>
++    </form>
++
++</div>
++</html>
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/book/validator/Phone.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/book/validator/Phone.java	(revision )
++++ src/main/java/springboot/nf/book/book/validator/Phone.java	(revision )
+@@ -0,0 +1,28 @@
++package springboot.nf.book.book.validator;
++
++import org.springframework.context.annotation.Configuration;
++
++import javax.validation.Constraint;
++import javax.validation.Payload;
++import java.lang.annotation.Documented;
++import java.lang.annotation.Retention;
++import java.lang.annotation.Target;
++
++import static java.lang.annotation.ElementType.METHOD;
++import static java.lang.annotation.ElementType.TYPE;
++import static java.lang.annotation.RetentionPolicy.RUNTIME;
++
++/**
++ *PhoneNum注解类
++ */
++@Target({METHOD , TYPE}) // @Target 表示该注解 可以使用该注解的目标类型
++@Retention(RUNTIME)
++@Documented     //@Documented 注解表明这个注解应该被 javadoc工具记录
++@Constraint(validatedBy = PhoneValidator.class)   //注解 应该被约束的类
++public @interface Phone {
++    String message() default "电话的格式不正确";
++
++    Class<?>[] groups() default{ };
++
++    Class<? extends Payload>[] payload() default { };
++}
+Index: src/main/java/springboot/nf/book/book/model/Author.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/book/model/Author.java	(revision )
++++ src/main/java/springboot/nf/book/book/model/Author.java	(revision )
+@@ -0,0 +1,55 @@
++package springboot.nf.book.book.model;
++
++import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.Id;
++import javax.persistence.OneToMany;
++import java.util.List;
++
++@Entity
++public class Author {
++    @Id//基于annotation的hibernate主键标识
++    @GeneratedValue
++    private Long id;
++
++    private String name;
++
++    private String telephone;
++
++    // 不要让双方都去维护关系，不然会有冲突或重复。
++    // 一般情况下，需要让多的一端维护关系即可。这里用 mappedBy 表名，自己当甩手掌柜。
++    @OneToMany(mappedBy = "author")
++    private List<Book> books;
++
++    public Long getId() {
++        return id;
++    }
++
++    public void setId(Long id) {
++        this.id = id;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++    public String getTelephone() {
++        return telephone;
++    }
++
++    public void setTelephone(String telephone) {
++        this.telephone = telephone;
++    }
++
++    public List<Book> getBooks() {
++        return books;
++    }
++
++    public void setBooks(List<Book> books) {
++        this.books = books;
++    }
++}
+Index: out/production/resources/templates/book/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- out/production/resources/templates/book/index.html	(revision )
++++ out/production/resources/templates/book/index.html	(revision )
+@@ -0,0 +1,42 @@
++<!DOCTYPE html>
++<html lang="en"
++      xmlns:th="http://www.thymeleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++      layout:decorate="layout/two"> <!--此行继承了book.html模板-->
++    <head>
++    <meta charset="UTF-8">
++    <title>文章列表</title>
++</head>
++<div layout:fragment="content">
++    <table class="table">
++        <thead>
++            <tr>
++                <th>#</th>
++                <th>书名</th>
++                <th>作者</th>
++                <th>价格</th>
++                <th>操作</th>
++            </tr>
++        </thead>
++        <tbody>
++        <tr th:if="${#lists.isEmpty(books)}">
++            <td colspan="5">
++                书名为空哦，请添加新的书籍<a th:href="@{/book/add}">添加</a>
++            </td>
++        </tr>
++        <tr th:each="book:${books}">
++            <td th:text="${book.id}">id</td>
++            <td th:text="${book.name}"></td>
++            <td th:text="${book.author.name}">author</td>
++            <td th:text="${book.price}">price</td>
++            <td>
++                <a th:href="@{/book/update(id=${book.id})}" href="#">编辑</a>
++                <a th:href="@{/book/delete(id=${book.id})}" href="#">删除</a>
++            </td>
++        </tr>
++        </tbody>
++    </table>
++    <a href="#" class="btn btn-dark" th:href="@{/book/add}">添加新的书籍</a>
++
++</div>
++</html>
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/book/model/Book.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/book/model/Book.java	(revision )
++++ src/main/java/springboot/nf/book/book/model/Book.java	(revision )
+@@ -0,0 +1,60 @@
++package springboot.nf.book.book.model;
++
++import org.hibernate.validator.constraints.NotBlank;
++
++import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.Id;
++import javax.persistence.ManyToOne;
++import javax.validation.constraints.Min;
++import javax.validation.constraints.NotNull;
++
++@Entity
++public class Book {
++
++    @Id
++    @GeneratedValue
++    private Long id;
++
++    //@Size(min = 2,max = 9)
++    @NotBlank
++    private String name;
++
++    @NotNull(message = "怎么，你想免费发给被人发书，太高尚了，鼓掌")
++    @Min(value = 10 ,message = "要想赚更多钱，心要狠，价更高")
++    private double price;
++
++    @ManyToOne
++    private Author author;
++    public Long getId() {
++        return id;
++    }
++
++    public void setId(Long id) {
++        this.id = id;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++    public double getPrice() {
++        return price;
++    }
++
++    public void setPrice(double price) {
++        this.price = price;
++    }
++
++    public Author getAuthor() {
++        return author;
++    }
++
++    public void setAuthor(Author author) {
++        this.author = author;
++    }
++}
+Index: src/main/java/springboot/nf/book/smsyun/ucpaas/restDemo/HttpConnectionManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/smsyun/ucpaas/restDemo/HttpConnectionManager.java	(revision )
++++ src/main/java/springboot/nf/book/smsyun/ucpaas/restDemo/HttpConnectionManager.java	(revision )
+@@ -0,0 +1,54 @@
++package springboot.nf.book.smsyun.ucpaas.restDemo;
++
++import org.apache.http.config.Registry;
++import org.apache.http.config.RegistryBuilder;
++import org.apache.http.conn.socket.ConnectionSocketFactory;
++import org.apache.http.conn.socket.LayeredConnectionSocketFactory;
++import org.apache.http.conn.socket.PlainConnectionSocketFactory;
++import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
++import org.apache.http.impl.client.CloseableHttpClient;
++import org.apache.http.impl.client.HttpClients;
++import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
++
++import javax.net.ssl.SSLContext;
++import java.security.NoSuchAlgorithmException;
++
++public class HttpConnectionManager {
++
++	private PoolingHttpClientConnectionManager cm = null;
++
++	private static HttpConnectionManager connectionManager;
++
++	public static HttpConnectionManager getInstance() {
++		if (connectionManager == null) {
++			synchronized (HttpConnectionManager.class) {
++				if (connectionManager == null) {
++					connectionManager = new HttpConnectionManager();
++					connectionManager.init();
++				}
++			}
++		}
++		return connectionManager;
++	}
++
++	private void init() {
++		LayeredConnectionSocketFactory sslsf = null;
++		try {
++			sslsf = new SSLConnectionSocketFactory(SSLContext.getDefault());
++		} catch (NoSuchAlgorithmException e) {
++			e.printStackTrace();			
++		}
++
++		Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory> create()
++				.register("https", sslsf).register("http", new PlainConnectionSocketFactory()).build();
++		cm = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
++		cm.setMaxTotal(200);
++		cm.setDefaultMaxPerRoute(20);
++	}
++
++	public CloseableHttpClient getHttpClient() {
++		CloseableHttpClient httpClient = HttpClients.custom().setConnectionManager(cm).build();
++
++		return httpClient;
++	}
++}
+Index: src/main/java/springboot/nf/book/service/mail/service/MailService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/mail/service/MailService.java	(revision )
++++ src/main/java/springboot/nf/book/service/mail/service/MailService.java	(revision )
+@@ -0,0 +1,6 @@
++package springboot.nf.book.service.mail.service;
++
++public interface MailService {
++    String sendSimple(String to, String what);//简单邮件
++    String sendComlex(String to, String what);//模板邮件
++}
+Index: out/production/resources/messages.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- out/production/resources/messages.properties	(revision )
++++ out/production/resources/messages.properties	(revision )
+@@ -0,0 +1,3 @@
++site_title=南方IT官网图书馆
++
++javax.validation.constraints.Size.message=hahaha
+\ No newline at end of file
+Index: src/main/resources/templates/layout/two.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/layout/two.html	(revision )
++++ src/main/resources/templates/layout/two.html	(revision )
+@@ -0,0 +1,43 @@
++<!DOCTYPE html>
++<html lang="en" xmlns:th="http://www.thymeleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++>
++<head>
++    <meta charset="UTF-8">
++    <title>我的网站</title>
++    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
++
++</head>
++<body>
++<div class="row mx-5">
++    <!--头部内容-->
++    <header class="col-sm-12 my-3">
++        <h1 th:text="#{site_title}" onclick="window.location.href='/book/index'" >我的图书馆</h1>
++    </header>
++    <!--主要内容-->
++    <div class="col-sm-12 col-lg-10 my-3" style="min-height: 300px;">
++        <div layout:fragment="content">
++            默认内容
++        </div>
++    </div>
++    <!--右边内容-->
++    <aside class="col-sm-12 col-lg-2">
++        <div class="mt-3 p-3 bg-dark" style="color: lightgoldenrodyellow;border-radius: 5px; min-height: 150px;">
++             <div layout:fragment="help">
++                 <p>图书馆的管理网站的首页的侧边栏的帮助文档</p>
++                 <p>-你好，请问你漂亮吗?</p>
++                 <p>-你好,有什么需要帮助您的?</p>
++             </div>
++        </div>
++    </aside>
++    <!--底部内容-->
++    <footer class="col-sm-12 text-center py-3 mt-5">
++        Copyright: nf-it
++    </footer>
++</div>
++<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
++
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/resources/templates/layout/book.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/layout/book.html	(revision )
++++ src/main/resources/templates/layout/book.html	(revision )
+@@ -0,0 +1,46 @@
++<!DOCTYPE html>
++<html lang="en" xmlns:th="http://www.thymeleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++>
++<head>
++    <meta charset="UTF-8">
++    <title>我的网站</title>
++    <link rel="stylesheet"
++          href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
++          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
++          crossorigin="anonymous">
++
++</head>
++<body>
++<div class="row mx-5">
++    <!--头部内容-->
++    <header class="col-sm-12 my-3">
++        <h1 th:text="#{site_title}" onclick="window.location.href='/book/index'" >我的图书馆</h1>
++    </header>
++    <!--主要内容-->
++    <div class="col-sm-12 col-lg-8 my-3" style="min-height: 300px;">
++        <div layout:fragment="content">
++            默认内容
++        </div>
++    </div>
++    <!--右边内容-->
++    <aside class="col-sm-12 col-lg-4">
++        <div class="mt-3 p-3 bg-dark" style="color: lightgoldenrodyellow;border-radius: 5px; min-height: 150px;">
++             <div layout:fragment="help">
++                 <p>图书馆的管理网站的首页的侧边栏的帮助文档</p>
++                 <p>-你好，请问你漂亮吗?</p>
++                 <p>-你好,有什么需要帮助您的?</p>
++             </div>
++        </div>
++    </aside>
++    <!--底部内容-->
++    <footer class="col-sm-12 text-center py-3 mt-5">
++        Copyright: nf-it
++    </footer>
++</div>
++<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
++
++</body>
++</html>
+\ No newline at end of file
+Index: gradlew
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- gradlew	(revision )
++++ gradlew	(revision )
+@@ -0,0 +1,172 @@
++#!/usr/bin/env sh
++
++##############################################################################
++##
++##  Gradle start up script for UN*X
++##
++##############################################################################
++
++# Attempt to set APP_HOME
++# Resolve links: $0 may be a link
++PRG="$0"
++# Need this for relative symlinks.
++while [ -h "$PRG" ] ; do
++    ls=`ls -ld "$PRG"`
++    link=`expr "$ls" : '.*-> \(.*\)$'`
++    if expr "$link" : '/.*' > /dev/null; then
++        PRG="$link"
++    else
++        PRG=`dirname "$PRG"`"/$link"
++    fi
++done
++SAVED="`pwd`"
++cd "`dirname \"$PRG\"`/" >/dev/null
++APP_HOME="`pwd -P`"
++cd "$SAVED" >/dev/null
++
++APP_NAME="Gradle"
++APP_BASE_NAME=`basename "$0"`
++
++# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
++DEFAULT_JVM_OPTS=""
++
++# Use the maximum available, or set MAX_FD != -1 to use that value.
++MAX_FD="maximum"
++
++warn ( ) {
++    echo "$*"
++}
++
++die ( ) {
++    echo
++    echo "$*"
++    echo
++    exit 1
++}
++
++# OS specific support (must be 'true' or 'false').
++cygwin=false
++msys=false
++darwin=false
++nonstop=false
++case "`uname`" in
++  CYGWIN* )
++    cygwin=true
++    ;;
++  Darwin* )
++    darwin=true
++    ;;
++  MINGW* )
++    msys=true
++    ;;
++  NONSTOP* )
++    nonstop=true
++    ;;
++esac
++
++CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
++
++# Determine the Java command to use to start the JVM.
++if [ -n "$JAVA_HOME" ] ; then
++    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
++        # IBM's JDK on AIX uses strange locations for the executables
++        JAVACMD="$JAVA_HOME/jre/sh/java"
++    else
++        JAVACMD="$JAVA_HOME/bin/java"
++    fi
++    if [ ! -x "$JAVACMD" ] ; then
++        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
++
++Please set the JAVA_HOME variable in your environment to match the
++location of your Java installation."
++    fi
++else
++    JAVACMD="java"
++    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
++
++Please set the JAVA_HOME variable in your environment to match the
++location of your Java installation."
++fi
++
++# Increase the maximum file descriptors if we can.
++if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
++    MAX_FD_LIMIT=`ulimit -H -n`
++    if [ $? -eq 0 ] ; then
++        if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ] ; then
++            MAX_FD="$MAX_FD_LIMIT"
++        fi
++        ulimit -n $MAX_FD
++        if [ $? -ne 0 ] ; then
++            warn "Could not set maximum file descriptor limit: $MAX_FD"
++        fi
++    else
++        warn "Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
++    fi
++fi
++
++# For Darwin, add options to specify how the application appears in the dock
++if $darwin; then
++    GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=$APP_NAME\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
++fi
++
++# For Cygwin, switch paths to Windows format before running java
++if $cygwin ; then
++    APP_HOME=`cygpath --path --mixed "$APP_HOME"`
++    CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
++    JAVACMD=`cygpath --unix "$JAVACMD"`
++
++    # We build the pattern for arguments to be converted via cygpath
++    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
++    SEP=""
++    for dir in $ROOTDIRSRAW ; do
++        ROOTDIRS="$ROOTDIRS$SEP$dir"
++        SEP="|"
++    done
++    OURCYGPATTERN="(^($ROOTDIRS))"
++    # Add a user-defined pattern to the cygpath arguments
++    if [ "$GRADLE_CYGPATTERN" != "" ] ; then
++        OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
++    fi
++    # Now convert the arguments - kludge to limit ourselves to /bin/sh
++    i=0
++    for arg in "$@" ; do
++        CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
++        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
++
++        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
++            eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
++        else
++            eval `echo args$i`="\"$arg\""
++        fi
++        i=$((i+1))
++    done
++    case $i in
++        (0) set -- ;;
++        (1) set -- "$args0" ;;
++        (2) set -- "$args0" "$args1" ;;
++        (3) set -- "$args0" "$args1" "$args2" ;;
++        (4) set -- "$args0" "$args1" "$args2" "$args3" ;;
++        (5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
++        (6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
++        (7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
++        (8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
++        (9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
++    esac
++fi
++
++# Escape application args
++save ( ) {
++    for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
++    echo " "
++}
++APP_ARGS=$(save "$@")
++
++# Collect all arguments for the java command, following the shell quoting and substitution rules
++eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$APP_BASE_NAME\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
++
++# by default we should be in the correct project dir, but when run from Finder on Mac, the cwd is wrong
++if [ "$(uname)" = "Darwin" ] && [ "$HOME" = "$PWD" ]; then
++  cd "$(dirname "$0")"
++fi
++
++exec "$JAVACMD" "$@"
+Index: src/main/java/springboot/nf/book/BookApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/BookApplication.java	(revision )
++++ src/main/java/springboot/nf/book/BookApplication.java	(revision )
+@@ -0,0 +1,12 @@
++package springboot.nf.book;
++
++import org.springframework.boot.SpringApplication;
++import org.springframework.boot.autoconfigure.SpringBootApplication;
++
++@SpringBootApplication
++public class BookApplication {
++
++	public static void main(String[] args) {
++		SpringApplication.run(BookApplication.class, args);
++	}
++}
+Index: out/production/resources/templates/book/add_author.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- out/production/resources/templates/book/add_author.html	(revision )
++++ out/production/resources/templates/book/add_author.html	(revision )
+@@ -0,0 +1,14 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Title</title>
++</head>
++<body>
++    <form method="post" action="/add_author">
++        <input type="text" name="name" placeholder="作者名称">
++        <input type="text" name="telephone" placeholder="电话号码">
++        <input type="submit">
++    </form>
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/resources/templates/book/add_author.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/book/add_author.html	(revision )
++++ src/main/resources/templates/book/add_author.html	(revision )
+@@ -0,0 +1,14 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Title</title>
++</head>
++<body>
++    <form method="post" action="/add_author">
++        <input type="text" name="name" placeholder="作者名称">
++        <input type="text" name="telephone" placeholder="电话号码">
++        <input type="submit">
++    </form>
++</body>
++</html>
+\ No newline at end of file
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .gitignore	(revision )
++++ .gitignore	(revision )
+@@ -0,0 +1,25 @@
++.gradle
++/build/
++!gradle/wrapper/gradle-wrapper.jar
++
++### STS ###
++.apt_generated
++.classpath
++.factorypath
++.project
++.settings
++.springBeans
++
++### IntelliJ IDEA ###
++.idea
++*.iws
++*.iml
++*.ipr
++
++### NetBeans ###
++nbproject/private/
++build/
++nbbuild/
++dist/
++nbdist/
++.nb-gradle/
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/book/validator/Xuehao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/book/validator/Xuehao.java	(revision )
++++ src/main/java/springboot/nf/book/book/validator/Xuehao.java	(revision )
+@@ -0,0 +1,34 @@
++package springboot.nf.book.book.validator;
++/**
++ * 自定义验证:通过
++ * 1、注解（类）
++ * 2、验证器（类）
++ * 完成
++ */
++
++import javax.validation.Constraint;
++import javax.validation.Payload;
++import java.lang.annotation.Retention;
++
++import java.lang.annotation.Documented;
++import java.lang.annotation.Target;
++
++import static java.lang.annotation.ElementType.FIELD;
++import static java.lang.annotation.ElementType.METHOD;
++import static java.lang.annotation.RetentionPolicy.RUNTIME;
++
++/*
++* 注解类
++* */
++@Target({METHOD , FIELD})  // @Target 表示该注解 可以使用该注解的目标类型
++@Retention(RUNTIME)        //@Retention 表示注解的保留期限
++@Documented                 //注解表明这个注解应该被 javadoc工具记录
++@Constraint(validatedBy = XuehaoValidator.class)//注解 应该被约束的类
++public @interface Xuehao {
++
++    String message() default "学号的格式不正确";
++
++    Class<?>[] groups() default{ };
++
++    Class<? extends Payload>[] payload() default { };
++}
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/service/SMSService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/SMSService.java	(revision )
++++ src/main/java/springboot/nf/book/service/SMSService.java	(revision )
+@@ -0,0 +1,27 @@
++package springboot.nf.book.service;
++
++
++/**
++ * 短信接口
++ */
++public interface SMSService {
++
++    /**
++     * 发送简单短信
++     * @param to
++     * @param what
++     * @return
++     */
++    String send(String to , String what);
++
++    /**
++     * template:   01 验证码短信
++     *             02 祝福短信
++     * @param to
++     * @param what
++     * @param type
++     * @return
++     */
++    // 发送定制模板
++    String send(String to , String what , int type);
++}
+Index: out/production/resources/ValidationMessages.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- out/production/resources/ValidationMessages.properties	(revision )
++++ out/production/resources/ValidationMessages.properties	(revision )
+@@ -0,0 +1,1 @@
++javax.validation.constraints.Size.message = {min}~~~~~{max}
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/book/dao/BookDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/book/dao/BookDAO.java	(revision )
++++ src/main/java/springboot/nf/book/book/dao/BookDAO.java	(revision )
+@@ -0,0 +1,8 @@
++package springboot.nf.book.book.dao;
++
++import org.springframework.data.jpa.repository.JpaRepository;
++import springboot.nf.book.book.model.Book;
++
++public interface BookDAO extends JpaRepository<Book,Long>{
++
++}
+Index: src/main/java/springboot/nf/book/service/Sender.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/Sender.java	(revision )
++++ src/main/java/springboot/nf/book/service/Sender.java	(revision )
+@@ -0,0 +1,5 @@
++package springboot.nf.book.service;
++
++public interface Sender {
++    public String send(String to, String what);
++}
+Index: README.org
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- README.org	(revision )
++++ README.org	(revision )
+@@ -0,0 +1,99 @@
++
++
++
++
++
++------------------------------------------------------------
++layout/book.html 模板文件
++------------------------------------------------------------
++<!DOCTYPE html>
++<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++>
++<head>
++    <meta charset="UTF-8">
++    <title>我的网站</title>
++    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
++
++</head>
++<body>
++<div class="row mx-5">
++    <!--头部内容-->
++    <header class="col-sm-12 my-3">
++        <h1 th:text="#{site_title}" onclick="window.location.href='/book/index'" >我的图书馆</h1>
++    </header>
++    <!--主要内容-->
++    <div class="col-sm-12 col-lg-8 my-3" style="min-height: 300px;">
++        <div layout:fragment="content">
++            默认内容
++        </div>
++    </div>
++    <!--右边内容-->
++    <aside class="col-sm-12 col-lg-4">
++        <div class="mt-3 p-3 bg-dark" style="color: lightgoldenrodyellow;border-radius: 5px; min-height: 150px;">
++             <div layout:fragment="help">
++                 <p>图书馆的管理网站的首页的侧边栏的帮助文档</p>
++                 <p>-你好，请问你漂亮吗?</p>
++                 <p>-你好,有什么需要帮助您的?</p>
++             </div>
++        </div>
++    </aside>
++    <!--底部内容-->
++    <footer class="col-sm-12 text-center py-3 mt-5">
++        Copyright: nf-it
++    </footer>
++</div>
++<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
++
++</body>
++</html>
++
++
++
++
++------------------------------------------------------------------------------------------
++book/update.html
++------------------------------------------------------------------------------------------
++<!DOCTYPE html>
++<html lang="en"
++      xmlns:th="http://www.thymeleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++      layout:decorate="layout/one">
++<head>
++    <title>修改书籍update</title>
++</head>
++
++<div layout:fragment="content">
++
++    <form th:action="@{/book/update}" method="post" th:object="${book}">
++        <input type="hidden" name="id" th:value="*{id}">
++        <div class="form-group">
++            <label for="name">名字</label>
++            <input class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid">
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
++        </div>
++        <div class="form-group">
++            <label for="price">价格</label>
++            <input type="number" class="form-control" id="price" th:field="*{price}" th:errorclass="is-invalid">
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
++        </div>
++        <div class="form-group">
++            <label for="author">作者</label>
++            <select class="form-control" id="author" th:field="*{author}" th:errorclass="is-invalid">
++                <option value="-1">请选择</option>
++                <option th:each="author : ${authors}"
++                        th:value="${author.id}"
++                        th:text="${author.name}">作者</option>
++            </select>
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
++        </div>
++
++        <button type="submit" class="btn btn-dark">保存更改</button>
++    </form>
++</div>
++
++</html>
++------------------------------------------------------------------------------------------------
++th:object="${book}" //取book对象
++th:field="*{price}"//去book对象的price 属性。
+\ No newline at end of file
+Index: src/main/resources/ValidationMessages.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- src/main/resources/ValidationMessages.properties	(revision )
++++ src/main/resources/ValidationMessages.properties	(revision )
+@@ -0,0 +1,1 @@
++javax.validation.constraints.Size.message = {min}~~~~~{max}
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/web/Test.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/web/Test.java	(revision )
++++ src/main/java/springboot/nf/book/web/Test.java	(revision )
+@@ -0,0 +1,7 @@
++package springboot.nf.book.web;
++
++public class Test {
++    public static void main(String[] args) {
++
++    }
++}
+Index: src/main/java/springboot/nf/book/book/validator/XuehaoValidator.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/book/validator/XuehaoValidator.java	(revision )
++++ src/main/java/springboot/nf/book/book/validator/XuehaoValidator.java	(revision )
+@@ -0,0 +1,24 @@
++package springboot.nf.book.book.validator;
++
++import javax.validation.ConstraintValidator;
++import javax.validation.ConstraintValidatorContext;
++
++/**
++ *学号的验证器
++ * @author Adminis
++ */
++
++public class XuehaoValidator implements ConstraintValidator<Xuehao, String>{
++    @Override
++    public void initialize(Xuehao constraintAnnotation) {
++        System.out.println("我来这里是为了初始化");
++    }
++
++    @Override
++    public boolean isValid(String value, ConstraintValidatorContext context) {
++        if(value == null){
++            return false;
++        }
++        return true;
++    }
++}
+Index: src/main/java/springboot/nf/book/exception/BossSayItIsImportantAdvice.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/exception/BossSayItIsImportantAdvice.java	(revision )
++++ src/main/java/springboot/nf/book/exception/BossSayItIsImportantAdvice.java	(revision )
+@@ -0,0 +1,21 @@
++package springboot.nf.book.exception;
++
++
++import org.apache.catalina.servlet4preview.http.HttpServletRequest;
++import org.springframework.dao.EmptyResultDataAccessException;
++import org.springframework.ui.Model;
++import org.springframework.web.bind.annotation.ExceptionHandler;
++
++public class BossSayItIsImportantAdvice {
++    @ExceptionHandler(EmptyResultDataAccessException.class)
++    public String handleEmptyResult(HttpServletRequest request, Model model, Exception ex){
++        model.addAttribute("err","[error]:"+ex.getMessage());
++        return "error";
++    }
++
++    @ExceptionHandler(Exception.class)
++    public String handleException(HttpServletRequest request, Model model ,Exception ex){
++        model.addAttribute("err", "[error]:"+ ex.getMessage());
++        return "error";
++    }
++}
+Index: src/main/java/springboot/nf/book/service/mail/service/MailServiceAdvanceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/mail/service/MailServiceAdvanceImpl.java	(revision )
++++ src/main/java/springboot/nf/book/service/mail/service/MailServiceAdvanceImpl.java	(revision )
+@@ -0,0 +1,13 @@
++package springboot.nf.book.service.mail.service;
++//发送复杂方式的Mail
++public class MailServiceAdvanceImpl /*implements MailService */{
++    /*@Override
++    public String sendSimple(String to, String what) {
++        return null;
++    }
++
++    @Override
++    public String sendComlex(String to, String what) {
++        return null;
++    }*/
++}
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- gradle/wrapper/gradle-wrapper.properties	(revision )
++++ gradle/wrapper/gradle-wrapper.properties	(revision )
+@@ -0,0 +1,6 @@
++#Fri Jan 19 11:21:21 CST 2018
++distributionBase=GRADLE_USER_HOME
++distributionPath=wrapper/dists
++zipStoreBase=GRADLE_USER_HOME
++zipStorePath=wrapper/dists
++distributionUrl=https\://services.gradle.org/distributions/gradle-3.5.1-all.zip
+Index: src/main/java/springboot/nf/book/exception/CommonAdvice.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/exception/CommonAdvice.java	(revision )
++++ src/main/java/springboot/nf/book/exception/CommonAdvice.java	(revision )
+@@ -0,0 +1,26 @@
++package springboot.nf.book.exception;
++
++import org.apache.catalina.servlet4preview.http.HttpServletRequest;
++import org.springframework.dao.EmptyResultDataAccessException;
++import org.springframework.ui.Model;
++import org.springframework.web.bind.annotation.ControllerAdvice;
++import org.springframework.web.bind.annotation.ExceptionHandler;
++
++
++@ControllerAdvice   /*SpringMVC中定义为异常统一处理类*/
++public class CommonAdvice {
++    /**
++     * @ExceptionHandler
++     */
++    @ExceptionHandler(EmptyResultDataAccessException.class)
++    public String handleEmptyResult(HttpServletRequest request, Model model, Exception ex){
++        model.addAttribute("err","[error]:"+ex.getMessage());
++        return "error";
++    }
++
++    @ExceptionHandler(Exception.class)
++    public String handleException(HttpServletRequest request, Model model, Exception ex){
++        model.addAttribute("err","[error]:"+ex.getMessage());
++        return "error";
++    }
++}
+Index: src/main/java/springboot/nf/book/web/IndexController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/web/IndexController.java	(revision )
++++ src/main/java/springboot/nf/book/web/IndexController.java	(revision )
+@@ -0,0 +1,14 @@
++/*
++package springboot.nf.book.web;
++
++import org.springframework.stereotype.Controller;
++import org.springframework.web.bind.annotation.RequestMapping;
++
++@Controller
++public class IndexController {
++    @RequestMapping("/")
++    public String index(){
++        return "redirect:book/index";
++    }
++}
++*/
+Index: src/main/resources/templates/book/add.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/book/add.html	(revision )
++++ src/main/resources/templates/book/add.html	(revision )
+@@ -0,0 +1,39 @@
++<!DOCTYPE html>
++<html lang="en"
++     xmlns:th="http://www.thymeleaf.org"
++     xmlns:layout="http://www.utlraq.net.nz/thymeleaf/layout"
++     layout:decorate="layout/two"
++>
++<head>
++    <meta charset="UTF-8">
++    <title>书籍添加</title>
++</head>
++    <div layout:fragment="content">
++        <form th:action="@{/book/add}" method="post" th:object="${book}">
++            <div class="form-group">
++                <label for="name">书名</label>
++                <input class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid">
++                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
++            </div>
++
++            <div class="form-group">
++                <label for="price">价格</label>
++                <input type="number" class="form-control" id="price" th:field="*{price}" th:errorclass="is-invalid">
++                <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
++            </div>
++
++            <div class="form-group">
++                <label for="author">作者</label>
++                <select class="form-control" id="author" th:field="*{author}" th:errorclass="is-invalid">
++                    <option value="-1">选择</option>
++                    <option th:each="author:${authors}"
++                             th:value="${author.id}"
++                             th:text="${author.name}">作者</option>
++                </select>
++                <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
++            </div>
++
++            <button type="submit" class="btn btn-primary">保存书籍</button>
++        </form>
++    </div>
++</html>
+\ No newline at end of file
+Index: out/production/resources/templates/layout/two.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- out/production/resources/templates/layout/two.html	(revision )
++++ out/production/resources/templates/layout/two.html	(revision )
+@@ -0,0 +1,43 @@
++<!DOCTYPE html>
++<html lang="en" xmlns:th="http://www.thymeleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++>
++<head>
++    <meta charset="UTF-8">
++    <title>我的网站</title>
++    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
++
++</head>
++<body>
++<div class="row mx-5">
++    <!--头部内容-->
++    <header class="col-sm-12 my-3">
++        <h1 th:text="#{site_title}" onclick="window.location.href='/book/index'" >我的图书馆</h1>
++    </header>
++    <!--主要内容-->
++    <div class="col-sm-12 col-lg-10 my-3" style="min-height: 300px;">
++        <div layout:fragment="content">
++            默认内容
++        </div>
++    </div>
++    <!--右边内容-->
++    <aside class="col-sm-12 col-lg-2">
++        <div class="mt-3 p-3 bg-dark" style="color: lightgoldenrodyellow;border-radius: 5px; min-height: 150px;">
++             <div layout:fragment="help">
++                 <p>图书馆的管理网站的首页的侧边栏的帮助文档</p>
++                 <p>-你好，请问你漂亮吗?</p>
++                 <p>-你好,有什么需要帮助您的?</p>
++             </div>
++        </div>
++    </aside>
++    <!--底部内容-->
++    <footer class="col-sm-12 text-center py-3 mt-5">
++        Copyright: nf-it
++    </footer>
++</div>
++<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
++
++</body>
++</html>
+\ No newline at end of file
+Index: out/production/resources/templates/book/add.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- out/production/resources/templates/book/add.html	(revision )
++++ out/production/resources/templates/book/add.html	(revision )
+@@ -0,0 +1,39 @@
++<!DOCTYPE html>
++<html lang="en"
++     xmlns:th="http://www.thymeleaf.org"
++     xmlns:layout="http://www.utlraq.net.nz/thymeleaf/layout"
++     layout:decorate="layout/two"
++>
++<head>
++    <meta charset="UTF-8">
++    <title>书籍添加</title>
++</head>
++    <div layout:fragment="content">
++        <form th:action="@{/book/add}" method="post" th:object="${book}">
++            <div class="form-group">
++                <label for="name">书名</label>
++                <input class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid">
++                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
++            </div>
++
++            <div class="form-group">
++                <label for="price">价格</label>
++                <input type="number" class="form-control" id="price" th:field="*{price}" th:errorclass="is-invalid">
++                <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
++            </div>
++
++            <div class="form-group">
++                <label for="author">作者</label>
++                <select class="form-control" id="author" th:field="*{author}" th:errorclass="is-invalid">
++                    <option value="-1">选择</option>
++                    <option th:each="author:${authors}"
++                             th:value="${author.id}"
++                             th:text="${author.name}">作者</option>
++                </select>
++                <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
++            </div>
++
++            <button type="submit" class="btn btn-primary">保存书籍</button>
++        </form>
++    </div>
++</html>
+\ No newline at end of file
+Index: out/production/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- out/production/resources/application.properties	(revision )
++++ out/production/resources/application.properties	(revision )
+@@ -0,0 +1,54 @@
++#设置服务端口
++server.port=8888
++
++#------MySQL数据库设置----------------------------------------------------------------------
++##设置数据库连接地址
++spring.datasource.url=jdbc:mysql://localhost:3306/sb
++##设置数据库用户名登录
++spring.datasource.username=root
++##设置数据库用户密码
++spring.datasource.password=root
++##加载数据库驱动
++spring.datasource.driver-class-name=com.mysql.jdbc.Driver
++
++#设置jpa语法为显示sql
++spring.jpa.show-sql=true
++#设置jpa语法为自动
++spring.jpa.hibernate.ddl-auto=update
++#--end----MySQL数据库设置----------------------------------------------------------------------
++
++#设置thymeleaf模版为HTML
++spring.thymeleaf.mode=html
++#设置thymeleaf缓存为关闭
++spring.thymeleaf.cache=false
++
++#---------邮件配置----------------------------------------------------------------
++#设置字符编码
++spring.messages.encoding=GBK
++
++spring.mail.host=smtp.163.com
++
++spring.mail.username=15015920872@163.com
++
++spring.mail.password=xiaoshu0707
++
++spring.mail.properties.ssl=true
++
++#------sms短信设置-----美盛云短信-----------------------------------------------------------------
++    #sms.meisheng.url=
++    #sms.meisheng.sid=
++    #sms.meisheng.apikey=
++    #sms.meisheng.extno=
++    #sms.meisheng.encode=
++#http://api.rcscloud.cn:8030/rcsapi/rest
++#ZH000000540
++#a85f409e-cf61-4d3f-a107-559bed41873c
++#222
++#222
++#----云之讯短信模板---------------------------------------------------------------------------------
++sms.meisheng.url=https://open.ucpaas.com/ol/sms/{function}
++sms.meisheng.sid=948de1612731642c2402c67e8f5739c8
++sms.meisheng.appid=e78a598cf9ae4ccdb694ff5711b5c5c9
++sms.meisheng.apikey=f2794629ffbbe8a7b26d20f8b875030e
++sms.meisheng.extno=236419
++sms.meisheng.encode=utf-8
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/smsyun/ucpaas/restDemo/HttpClientUtil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/smsyun/ucpaas/restDemo/HttpClientUtil.java	(revision )
++++ src/main/java/springboot/nf/book/smsyun/ucpaas/restDemo/HttpClientUtil.java	(revision )
+@@ -0,0 +1,51 @@
++package springboot.nf.book.smsyun.ucpaas.restDemo;
++
++import org.apache.http.HttpEntity;
++import org.apache.http.HttpResponse;
++import org.apache.http.client.config.RequestConfig;
++import org.apache.http.client.methods.HttpPost;
++import org.apache.http.entity.StringEntity;
++import org.apache.http.impl.client.CloseableHttpClient;
++import org.apache.http.util.EntityUtils;
++
++public class HttpClientUtil {
++
++	public static String postJson(String url, String body, String charset) {
++		
++		String result = null;
++		
++
++			CloseableHttpClient httpClient = null;
++			HttpPost httpPost = null;
++			try {
++				httpClient = HttpConnectionManager.getInstance().getHttpClient();
++				httpPost = new HttpPost(url);
++				
++				// 设置连接超时,设置读取超时
++				RequestConfig requestConfig = RequestConfig.custom()
++						.setConnectTimeout(10000)	
++		                .setSocketTimeout(10000)	
++		                .build();
++				httpPost.setConfig(requestConfig);
++				
++				httpPost.setHeader("Accept", "application/json");
++				httpPost.setHeader("Content-Type", "application/json;charset=utf-8");
++				
++				// 设置参数
++				StringEntity se = new StringEntity(body, "UTF-8");
++				httpPost.setEntity(se);
++				HttpResponse response = httpClient.execute(httpPost);
++				if (response != null) {
++					HttpEntity resEntity = response.getEntity();
++					if (resEntity != null) {
++						result = EntityUtils.toString(resEntity, charset);
++					}
++				}
++			} catch (Exception ex) {
++				ex.printStackTrace();
++			}
++
++		
++		return result;
++	}
++}
+Index: gradlew.bat
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- gradlew.bat	(revision )
++++ gradlew.bat	(revision )
+@@ -0,0 +1,84 @@
++@if "%DEBUG%" == "" @echo off
++@rem ##########################################################################
++@rem
++@rem  Gradle startup script for Windows
++@rem
++@rem ##########################################################################
++
++@rem Set local scope for the variables with windows NT shell
++if "%OS%"=="Windows_NT" setlocal
++
++set DIRNAME=%~dp0
++if "%DIRNAME%" == "" set DIRNAME=.
++set APP_BASE_NAME=%~n0
++set APP_HOME=%DIRNAME%
++
++@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
++set DEFAULT_JVM_OPTS=
++
++@rem Find java.exe
++if defined JAVA_HOME goto findJavaFromJavaHome
++
++set JAVA_EXE=java.exe
++%JAVA_EXE% -version >NUL 2>&1
++if "%ERRORLEVEL%" == "0" goto init
++
++echo.
++echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
++echo.
++echo Please set the JAVA_HOME variable in your environment to match the
++echo location of your Java installation.
++
++goto fail
++
++:findJavaFromJavaHome
++set JAVA_HOME=%JAVA_HOME:"=%
++set JAVA_EXE=%JAVA_HOME%/bin/java.exe
++
++if exist "%JAVA_EXE%" goto init
++
++echo.
++echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
++echo.
++echo Please set the JAVA_HOME variable in your environment to match the
++echo location of your Java installation.
++
++goto fail
++
++:init
++@rem Get command-line arguments, handling Windows variants
++
++if not "%OS%" == "Windows_NT" goto win9xME_args
++
++:win9xME_args
++@rem Slurp the command line arguments.
++set CMD_LINE_ARGS=
++set _SKIP=2
++
++:win9xME_args_slurp
++if "x%~1" == "x" goto execute
++
++set CMD_LINE_ARGS=%*
++
++:execute
++@rem Setup the command line
++
++set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
++
++@rem Execute Gradle
++"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %CMD_LINE_ARGS%
++
++:end
++@rem End local scope for the variables with windows NT shell
++if "%ERRORLEVEL%"=="0" goto mainEnd
++
++:fail
++rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
++rem the _cmd.exe /c_ return code!
++if  not "" == "%GRADLE_EXIT_CONSOLE%" exit 1
++exit /b 1
++
++:mainEnd
++if "%OS%"=="Windows_NT" endlocal
++
++:omega
+Index: src/main/java/springboot/nf/book/book/validator/PhoneValidator.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/book/validator/PhoneValidator.java	(revision )
++++ src/main/java/springboot/nf/book/book/validator/PhoneValidator.java	(revision )
+@@ -0,0 +1,22 @@
++package springboot.nf.book.book.validator;
++
++import javax.validation.ConstraintValidator;
++import javax.validation.ConstraintValidatorContext;
++
++/**
++ * 电话号码验证器
++ * 验证： 第一为1开头;第二位 3、4、5、6、7、8开头的电话号码;
++ *        后九位数是【0-9】
++ *        的电话号码
++ */
++public class PhoneValidator implements ConstraintValidator<Phone , String>{
++    @Override
++    public void initialize(Phone constraintAnnotation) {
++        System.out.println("实例化开始！");
++    }
++
++    @Override
++    public boolean isValid(String value, ConstraintValidatorContext context) {
++        return false;
++    }
++}
+Index: src/main/java/springboot/nf/book/web/BookController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/web/BookController.java	(revision )
++++ src/main/java/springboot/nf/book/web/BookController.java	(revision )
+@@ -0,0 +1,99 @@
++
++package springboot.nf.book.web;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Controller;
++import org.springframework.ui.Model;
++import org.springframework.validation.BindingResult;
++import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.PostMapping;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
++import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
++import springboot.nf.book.book.dao.AuthorDAO;
++import springboot.nf.book.book.dao.BookDAO;
++import springboot.nf.book.book.model.Book;
++
++import javax.validation.Valid;
++
++@Controller
++@RequestMapping("/book")
++public class BookController extends WebMvcConfigurerAdapter {
++
++    @Autowired //自动注入BookDAO类
++    private BookDAO bookDAO;
++
++    @Autowired //自动注入AuthorDAO类
++    private AuthorDAO authorDAO;
++
++    @GetMapping("/index")
++    public String listting(Model model){
++        model.addAttribute("books",bookDAO.findAll());
++        return "book/index";
++    }
++
++    @GetMapping("/add")
++    public String add(Book book, Model model){
++        model.addAttribute("authors",authorDAO.findAll());
++        return "book/add";
++    }
++
++
++/**@Valid Book book
++     *验证Book中@NotNull(message = "怎么，你想免费发给被人发书，太高尚了，鼓掌")@Min(value = 10 ,message = "要想赚更多钱，心要狠，价更高")@Size(min = 2,max = 9)
++     *@Size(min = 2,max = 9)
++     *信息是否符合条件
++     *BindingResult errors:绑定Book book 信息到对象中显示
++     */
++
++    @PostMapping("/add")
++    public String save(@Valid Book book, BindingResult errors , Model model){
++            if (book.getAuthor() == null || book.getAuthor().getId()<1){
++                errors.rejectValue("author",null,"你需要填写作者信息哦！");
++            }
++            if (errors.hasErrors()){
++                model.addAttribute("authors",authorDAO.findAll());
++                return "book/add";
++            }
++             bookDAO.save(book);
++
++             return "redirect:index";
++    }
++
++    @GetMapping("/update")
++    public String toEdit(Model model ,Long id) {
++        model.addAttribute("book",bookDAO.getOne(id));
++        model.addAttribute("authors",authorDAO.findAll());
++        return "book/update";
++    }
++
++    @PostMapping("/update")
++    public String edit(@Valid Book book, BindingResult result, Model model , RedirectAttributesModelMap flash) {
++        if (invalidBook(book, result,model)) {
++            return "book/update";
++        }
++        bookDAO.save(book);
++        flash.addFlashAttribute("msg","保存成功！");
++        return "redirect:index";
++    }
++
++    private boolean invalidBook(Book book, BindingResult result, Model model) {
++        if (book.getAuthor() == null || book.getAuthor().getId()< 1){
++            result.rejectValue("author",null,"您需要填写作者的信息哦!");
++        }
++        if (result.hasErrors()){
++            model.addAttribute("authors",authorDAO.findAll());
++        }
++        return result.hasErrors();
++    }
++
++    @GetMapping("/delete")
++    public String deleteBook(Long id , RedirectAttributesModelMap flash){
++            bookDAO.delete(id);
++            flash.addFlashAttribute("msg","删除成功");
++            return "redirect:index";
++    }
++
++
++}
++
+Index: out/production/resources/templates/layout/book.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- out/production/resources/templates/layout/book.html	(revision )
++++ out/production/resources/templates/layout/book.html	(revision )
+@@ -0,0 +1,46 @@
++<!DOCTYPE html>
++<html lang="en" xmlns:th="http://www.thymeleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++>
++<head>
++    <meta charset="UTF-8">
++    <title>我的网站</title>
++    <link rel="stylesheet"
++          href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
++          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
++          crossorigin="anonymous">
++
++</head>
++<body>
++<div class="row mx-5">
++    <!--头部内容-->
++    <header class="col-sm-12 my-3">
++        <h1 th:text="#{site_title}" onclick="window.location.href='/book/index'" >我的图书馆</h1>
++    </header>
++    <!--主要内容-->
++    <div class="col-sm-12 col-lg-8 my-3" style="min-height: 300px;">
++        <div layout:fragment="content">
++            默认内容
++        </div>
++    </div>
++    <!--右边内容-->
++    <aside class="col-sm-12 col-lg-4">
++        <div class="mt-3 p-3 bg-dark" style="color: lightgoldenrodyellow;border-radius: 5px; min-height: 150px;">
++             <div layout:fragment="help">
++                 <p>图书馆的管理网站的首页的侧边栏的帮助文档</p>
++                 <p>-你好，请问你漂亮吗?</p>
++                 <p>-你好,有什么需要帮助您的?</p>
++             </div>
++        </div>
++    </aside>
++    <!--底部内容-->
++    <footer class="col-sm-12 text-center py-3 mt-5">
++        Copyright: nf-it
++    </footer>
++</div>
++<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
++<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
++
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/resources/templates/book/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/book/index.html	(revision )
++++ src/main/resources/templates/book/index.html	(revision )
+@@ -0,0 +1,42 @@
++<!DOCTYPE html>
++<html lang="en"
++      xmlns:th="http://www.thymeleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++      layout:decorate="layout/two"> <!--此行继承了book.html模板-->
++    <head>
++    <meta charset="UTF-8">
++    <title>文章列表</title>
++</head>
++<div layout:fragment="content">
++    <table class="table">
++        <thead>
++            <tr>
++                <th>#</th>
++                <th>书名</th>
++                <th>作者</th>
++                <th>价格</th>
++                <th>操作</th>
++            </tr>
++        </thead>
++        <tbody>
++        <tr th:if="${#lists.isEmpty(books)}">
++            <td colspan="5">
++                书名为空哦，请添加新的书籍<a th:href="@{/book/add}">添加</a>
++            </td>
++        </tr>
++        <tr th:each="book:${books}">
++            <td th:text="${book.id}">id</td>
++            <td th:text="${book.name}"></td>
++            <td th:text="${book.author.name}">author</td>
++            <td th:text="${book.price}">price</td>
++            <td>
++                <a th:href="@{/book/update(id=${book.id})}" href="#">编辑</a>
++                <a th:href="@{/book/delete(id=${book.id})}" href="#">删除</a>
++            </td>
++        </tr>
++        </tbody>
++    </table>
++    <a href="#" class="btn btn-dark" th:href="@{/book/add}">添加新的书籍</a>
++
++</div>
++</html>
+\ No newline at end of file
+Index: src/main/resources/ValidationMessages_zh_CN.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- src/main/resources/ValidationMessages_zh_CN.properties	(revision )
++++ src/main/resources/ValidationMessages_zh_CN.properties	(revision )
+@@ -0,0 +1,1 @@
++javax.validation.constraints.Size.message        = xxxxxxxxx{min}~~~~~{max}
+Index: src/main/resources/messages.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>GBK
+===================================================================
+--- src/main/resources/messages.properties	(revision )
++++ src/main/resources/messages.properties	(revision )
+@@ -0,0 +1,3 @@
++site_title=南方IT官网图书馆
++
++javax.validation.constraints.Size.message=hahaha
+\ No newline at end of file
+Index: out/production/resources/templates/vue/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- out/production/resources/templates/vue/index.html	(revision )
++++ out/production/resources/templates/vue/index.html	(revision )
+@@ -0,0 +1,25 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Vue.js</title>
++</head>
++<body>
++    哈哈！我是Vue demo!
++    <div id="app">
++        <table>
++            <tr>
++                <td>id</td>
++                <td>name</td>
++                <td>address</td>
++                <td>tel</td>
++            </tr>
++        </table>
++    </div>
++    <script>
++        new Vue({
++            el:"#app"
++        });
++    </script>
++</body>
++</html>
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/service/SMSManageService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/SMSManageService.java	(revision )
++++ src/main/java/springboot/nf/book/service/SMSManageService.java	(revision )
+@@ -0,0 +1,6 @@
++package springboot.nf.book.service;
++
++/**短信服务管理接口*/
++public interface SMSManageService {
++    public void addTemplate();
++}
+Index: src/main/java/springboot/nf/book/service/sms/MeiShengSMSServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/sms/MeiShengSMSServiceImpl.java	(revision )
++++ src/main/java/springboot/nf/book/service/sms/MeiShengSMSServiceImpl.java	(revision )
+@@ -0,0 +1,96 @@
++package springboot.nf.book.service.sms;
++
++import org.apache.http.HttpEntity;
++import org.apache.http.HttpResponse;
++import org.apache.http.NameValuePair;
++import org.apache.http.client.entity.UrlEncodedFormEntity;
++import org.apache.http.client.methods.HttpPost;
++import org.apache.http.impl.client.CloseableHttpClient;
++import org.apache.http.impl.client.HttpClientBuilder;
++import org.apache.http.message.BasicNameValuePair;
++import org.apache.http.util.EntityUtils;
++import org.springframework.beans.factory.annotation.Value;
++import springboot.nf.book.service.SMSService;
++import springboot.nf.book.service.sms.utils.Commons;
++
++import java.io.IOException;
++import java.io.UnsupportedEncodingException;
++import java.security.NoSuchAlgorithmException;
++import java.util.Arrays;
++import java.util.List;
++
++public class MeiShengSMSServiceImpl implements SMSService {
++    // 将参数写在配置文件中
++    @Value("${sms.meisheng.url}")
++    String HttpUrl;
++    @Value("${sms.meisheng.sid}")
++    String AccountSid;
++    @Value("${sms.meisheng.apikey}")
++    String AccountApikey;
++    @Value("${sms.meisheng.extno}")
++    String extno;
++    @Value("${sms.meisheng.encode}")
++    String encoding = "UTF-8";
++
++    /**
++     * template:   01 验证码短信
++     * 02 祝福短信
++     *
++     * @param to
++     * @param what
++     * @param templateNo
++     * @return
++     */
++    @Override
++    public String send(String to, String what, int templateNo) {
++        String resultJson = "";
++        CloseableHttpClient httpClient = null;
++
++        try {
++            //构造发送的内容
++            HttpPost sms = new HttpPost(HttpUrl + "/sms/sendtplsms.json");
++            sms.setHeader("Content-type", "application/x-www-form-urlencoded");
++            sms.setHeader("Content-Encoding", encoding);
++            List<NameValuePair> nvps = Arrays.asList(
++                    new BasicNameValuePair("sid", AccountSid),
++                    new BasicNameValuePair("sign", encrypt(AccountSid + AccountApikey + templateNo + to + what)),
++                    new BasicNameValuePair("extno", extno),
++                    new BasicNameValuePair("mobile", to),
++                    new BasicNameValuePair("content", what),
++                    new BasicNameValuePair("tplid", templateNo + ""));
++            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nvps, encoding);
++            sms.setEntity(entity);
++
++            // 第二步、通过 httpclient 发送信息出去
++            httpClient = HttpClientBuilder.create().build();
++            HttpResponse response = httpClient.execute(sms);
++
++            // 第三步、得到并处理返回结果
++            HttpEntity httpEntity = response.getEntity();
++            resultJson = EntityUtils.toString(httpEntity, encoding);
++
++            EntityUtils.consume(entity);
++        } catch (Exception e) {
++            e.printStackTrace();
++        } finally {
++            if (httpClient != null) {
++                try {
++                    httpClient.close();
++                } catch (IOException e) {
++                    e.printStackTrace();
++                }
++            }
++        }
++        return resultJson;
++    }
++
++    @Override
++    public String send(String to, String what) {
++
++        return send(to, what, 9);
++    }
++
++    private String encrypt(String msg) throws UnsupportedEncodingException, NoSuchAlgorithmException {
++        return Commons.md5Digest(Commons.changeCharset(msg, encoding), encoding);
++    }
++}
+Index: src/main/resources/templates/vue/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/vue/index.html	(revision )
++++ src/main/resources/templates/vue/index.html	(revision )
+@@ -0,0 +1,25 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <title>Vue.js</title>
++</head>
++<body>
++    哈哈！我是Vue demo!
++    <div id="app">
++        <table>
++            <tr>
++                <td>id</td>
++                <td>name</td>
++                <td>address</td>
++                <td>tel</td>
++            </tr>
++        </table>
++    </div>
++    <script>
++        new Vue({
++            el:"#app"
++        });
++    </script>
++</body>
++</html>
+\ No newline at end of file
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision )
++++ build.gradle	(revision )
+@@ -0,0 +1,36 @@
++buildscript {
++	ext {
++		springBootVersion = '1.5.9.RELEASE'
++	}
++	repositories {
++		mavenCentral()
++	}
++	dependencies {
++		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
++	}
++}
++
++apply plugin: 'java'
++apply plugin: 'idea'
++apply plugin: 'org.springframework.boot'
++
++group = 'springboot.nf'
++version = '0.0.1-SNAPSHOT'
++sourceCompatibility = 1.8
++
++repositories {
++	mavenCentral()
++}
++ext['thymeleaf.version'] = '3.0.9.RELEASE'
++ext['thymeleaf-layout-dialect.version'] = '2.2.2'
++
++dependencies {
++	compile('org.springframework.boot:spring-boot-starter-data-jpa')
++	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
++	compile('org.springframework.boot:spring-boot-starter-web')
++	compile('org.springframework.boot:spring-boot-starter-mail')
++	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
++	compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.9'
++	runtime('mysql:mysql-connector-java')
++	testCompile('org.springframework.boot:spring-boot-starter-test')
++}
+Index: src/main/java/springboot/nf/book/web/AuthorController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/web/AuthorController.java	(revision )
++++ src/main/java/springboot/nf/book/web/AuthorController.java	(revision )
+@@ -0,0 +1,31 @@
++/*
++package springboot.nf.book.web;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Controller;
++import org.springframework.ui.Model;
++import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.PostMapping;
++import org.springframework.web.bind.annotation.RequestMapping;
++import springboot.nf.book.book.dao.AuthorDAO;
++import springboot.nf.book.book.model.Author;
++
++@Controller
++@RequestMapping("/book")
++public class AuthorController {
++
++    @Autowired
++    private AuthorDAO authorDAO;
++
++    @GetMapping("/add_author")
++    public String add(){
++        return "/book/add_author";
++    }
++
++    @PostMapping("/add_author")
++    public String store(Author author, Model model){
++        authorDAO.save(author);
++        return "redirect:add_author";
++    }
++}
++*/
+Index: src/main/java/springboot/nf/book/book/dao/AuthorDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/book/dao/AuthorDAO.java	(revision )
++++ src/main/java/springboot/nf/book/book/dao/AuthorDAO.java	(revision )
+@@ -0,0 +1,8 @@
++package springboot.nf.book.book.dao;
++
++import org.springframework.data.jpa.repository.JpaRepository;
++import springboot.nf.book.book.model.Author;
++//AuthorDAO接口继承JpaRepsitory中的Author通过id来
++public interface AuthorDAO extends JpaRepository<Author,Long>{
++
++}
+Index: src/main/resources/templates/book/update.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/book/update.html	(revision )
++++ src/main/resources/templates/book/update.html	(revision )
+@@ -0,0 +1,40 @@
++<!DOCTYPE html>
++<html lang="en" xmlns:th="http://www.thyemleaf.org"
++      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
++      layout:decorate="layout/book">
++<head>
++    <meta charset="UTF-8">
++    <title>Title</title>
++</head>
++<div layout:fragment="content">
++    <form th:action="@{/book/update}" method="post" th:object="${book}">
++        <input type="hidden" name="id" th:value="*{id}">
++
++        <div class="form-group">
++            <label for="name">书名</label>
++            <input class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid">
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
++        </div>
++
++        <div class="form-group">
++            <label for="price">价格</label>
++            <input class="form-control" id="price" th:field="*{price}" th:errorclass="is-invalid">
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
++        </div>
++
++        <div class="form-group">
++            <label for="author">作者</label>
++            <select class="form-control" id="author" th:field="*{author}" th:errorclass="is-invalid">
++                <option value="-1">请选择</option>
++                <option th:each="author:${authors}"
++                         th:value="${author.id}"
++                         th:text="${author.name}">作者</option>
++            </select>
++            <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errorclass="in-invalid"></div>
++        </div>
++
++        <button type="submit" class="btn btn-dark">保存更改</button>
++    </form>
++
++</div>
++</html>
+\ No newline at end of file
+Index: src/main/java/springboot/nf/book/service/sms/YunZhiXunSMSSericelmpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/sms/YunZhiXunSMSSericelmpl.java	(revision )
++++ src/main/java/springboot/nf/book/service/sms/YunZhiXunSMSSericelmpl.java	(revision )
+@@ -0,0 +1,93 @@
++package springboot.nf.book.service.sms;
++
++
++import com.alibaba.fastjson.JSONObject;
++import org.apache.http.impl.client.CloseableHttpClient;
++import org.springframework.beans.factory.annotation.Value;
++import org.springframework.stereotype.Service;
++import springboot.nf.book.service.SMSService;
++import springboot.nf.book.service.sms.utils.Commons;
++import springboot.nf.book.smsyun.ucpaas.restDemo.HttpClientUtil;
++
++import java.io.UnsupportedEncodingException;
++import java.security.NoSuchAlgorithmException;
++
++;
++
++@Service
++public class YunZhiXunSMSSericelmpl implements SMSService {
++    /*    static String HttpUrl="";
++        static String ACCOUNT_SID="";
++        static String ACCOUNT_APIKEY="";
++        static final String CHARSET_UTF8="UTF-8";
++        static String extno = "222";*/
++// 将参数写在配置文件中
++    @Value("${sms.meisheng.url}")
++    String HttpUrl;
++    @Value("${sms.meisheng.sid}")
++    String AccountSid;
++    @Value("${sms.meisheng.appid}")
++    String appid;
++    @Value("${sms.meisheng.apikey}")
++    String AccountApikey;
++    @Value("${sms.meisheng.extno}")
++    String extno;
++    @Value("${sms.meisheng.encode}")
++    String encoding = "UTF-8";
++
++    /**
++     * 发送简单短信
++     *
++     * @param to
++     * @param what
++     * @return
++     */
++    @Override
++    public String send(String to, String what) {
++        return null;
++    }
++
++    /**
++     * template:   01 验证码短信
++     * 02 祝福短信
++     *
++     * @param to
++     * @param what
++     * @param type
++     * @return
++     */
++    @Override
++    public String send(String to, String what, int type) {
++        String resultJson = "";
++        CloseableHttpClient httpClient = null;
++
++        String result = "";
++
++        try {
++            String url = HttpUrl;
++
++            JSONObject jsonObject = new JSONObject();
++            jsonObject.put("sid", AccountSid);
++            jsonObject.put("token", AccountApikey);
++            jsonObject.put("appid", appid);
++            jsonObject.put("templateid", extno);
++            jsonObject.put("param", what);
++            jsonObject.put("mobile", to);
++
++
++            String body = jsonObject.toJSONString();
++
++            System.out.println("body = " + body);
++
++            result = HttpClientUtil.postJson(url, body, null);
++
++        } catch (Exception e) {
++            e.printStackTrace();
++        }
++        return result;
++    }
++
++    private String encrypt(String msg) throws UnsupportedEncodingException, NoSuchAlgorithmException {
++        return Commons.md5Digest(Commons.changeCharset(msg, encoding), encoding);
++    }
++}
+Index: src/main/java/springboot/nf/book/service/sms/utils/Commons.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/springboot/nf/book/service/sms/utils/Commons.java	(revision )
++++ src/main/java/springboot/nf/book/service/sms/utils/Commons.java	(revision )
+@@ -0,0 +1,54 @@
++package springboot.nf.book.service.sms.utils;
++
++import java.io.UnsupportedEncodingException;
++import java.security.MessageDigest;
++import java.security.NoSuchAlgorithmException;
++
++public class Commons {
++
++
++    /**
++     * MD5算法
++     *
++     * @param src
++     * @return
++     * @throws NoSuchAlgorithmException
++     * @throws UnsupportedEncodingException String
++     */
++    public static String md5Digest(String src, String charset) throws NoSuchAlgorithmException, UnsupportedEncodingException {
++        MessageDigest md = MessageDigest.getInstance("MD5");
++        byte[] b = md.digest(src.getBytes(charset));
++        return byte2HexStr(b);
++    }
++
++    private static String byte2HexStr(byte[] b) {
++        StringBuilder sb = new StringBuilder();
++        for (int i = 0; i < b.length; ++i) {
++            String s = Integer.toHexString(b[i] & 0xFF);
++            if (s.length() == 1) {
++                sb.append("0");
++            }
++            sb.append(s.toUpperCase());
++        }
++        return sb.toString();
++    }
++
++    /**
++     * 字符编码转换
++     *
++     * @param str
++     * @param newCharset
++     * @return
++     * @throws UnsupportedEncodingException String
++     */
++    public static String changeCharset(String str, String newCharset)
++            throws UnsupportedEncodingException {
++        if (str != null) {
++            //用默认字符编码解码字符串。
++            byte[] bs = str.getBytes();
++            //用新的字符编码生成字符串
++            return new String(bs, newCharset);
++        }
++        return null;
++    }
++}
+diff --git out/production/classes/springboot/nf/book/service/Sender.class out/production/classes/springboot/nf/book/service/Sender.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..b210d20f8a35d5facfafc514b93aa23c8285c290
+GIT binary patch
+literal 194
+zc$_=+Z`VEs1_l!bPId-%b_Nbc2A1N~yc9+T3k{#F#Ii*FoW#6z{os<K%)E4KOc6~?
+zAw~wS;QZ2}<W#rJoK!{z?qHyCsYQAqb&L#(#RVWmN%{FD`gv*kKssB$IJKxOGdWcs
+pqL7h60AZwmQdVkm2^%8=BLfoy2r#lRGB7i+fLIKyK$3}p4FGx-H4*>-
+
+diff --git out/production/classes/springboot/nf/book/web/Test.class out/production/classes/springboot/nf/book/web/Test.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..cb06b9bf59b5a136560c48551ecc650560fbf560
+GIT binary patch
+literal 401
+zc$|Gtu};G<5PjFA2?>Rk7O@}(wgM7fx)re?F-0)6>cZp%6I@aUr7nCI6A}X-z(*m@
+z1_>k(mhPVJ-FxrkxA&J<03&Rt2(T5SA7em>PPEbXln@LLW`yvpzE*^8rj5E-EppXN
+zWnMAU&+0-}Gudc2f03cR)l0%&w!Ck&Df7Cv!rTbPJMpM;F;z=DX4yh&L)aN!Wpnu;
+zMI}usCe~TT{-|t9jv4&1CZv;k)fDPnyMu{KJa(!MLbM6H|6C^YzVj~gxhgF7(c<5`
+z*8;f+?h#Ldkr>;D&!8v2j=4vk46w$%^C>`rlrh1&XPo(n%k6#{qaQ}X1~xr*y{h*C
+DoNZ6m
+
+diff --git out/production/classes/springboot/nf/book/service/SMSService.class out/production/classes/springboot/nf/book/service/SMSService.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..d0a29a55d53bd190d25f68564a0bf23543e14aca
+GIT binary patch
+literal 270
+zc$_=+Z`VEs1_l!bE_MbEb_PyH2A1N~yc9+T3k{#F#Ii*FoW#6z{os<K%)E4KOc6~?
+zAw~vEqO^Kq)yox}Us{x$>Xw<4%E-VU>>C`MT2z*qoT>*>%gCTwTmVv-l%HRspO>Z&
+zq_g#lAu99{iWwOM5JvkaWu+#UurV?)GB7cK022!%12Y2)0|S_51&S~-uz|!G*Z~7E
+BOs4<<
+
+diff --git out/production/classes/springboot/nf/book/web/SenderTestController.class out/production/classes/springboot/nf/book/web/SenderTestController.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..c653598dc34e0c22243029393f686a33a5563dc0
+GIT binary patch
+literal 922
+zc$}3|+invv5Is&e_dv>0F5zCFG%W%vZ3C@9h^i75QVJ4_!UIp<#0hQ_JMwxH`d1(!
+zA$Z^e_$b6|5~Y=z2Y6VY9nZ`;XGZ@0=jSf~Tc{S0!;L($xS7MP9BvnJ2g^C!&Ej4b
+z_ZbRNKMJHBs+MF}ZA1gBbT>4{aoypBM?9Kjd2kR+3!gDm-o@IfzHF*Ug*~~ewQ<5J
+zqa%jxhOu2fVd_}Xmm_13cqoOAct^CHvBzA@8u)JP%t%?;Cfdw%rImZZuuxrVGI)EY
+zO}5GnrRAHrA4>aPkQ#&EFfGw*3agTMdg-}OisT>78)76w9!T9L1{t|Mqn$Oqp0uQy
+zc7}GquvA@Z9EzdfJ)yfia0v&cx8_ch@P$gZPY<#$-GLYkCT;1V=*5XCJ|-^&Cblj4
+zN+m`s^PD_Rv>6`Gm5ZFT(zxS+<fpusa1Q57$fLketZmkIHa4C<*{pAqYOP+YXR%Vk
+z1FSOShq2`3R(>Xd|JV-0;>kwdhKI7{7*_u2jgW_k7#Vh|XSaIx=JlN2W0{_9j-D|?
+zDjAZnNKuBcM3^F^`ROcE#0eQ;di^`t*KvArS`2EwKxb)E03R2}q)WI&RY~(pc;lSE
+z{tYRA!S}o$NPGC;XTHps3WT7)GI5=-`BS#USYqWeeOEq$MYu}!m2vmAneFSqUw1g^
+A`Tzg`
+
+diff --git out/production/classes/springboot/nf/book/book/validator/Xuehao.class out/production/classes/springboot/nf/book/book/validator/Xuehao.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..5a49a41a99f2dc2c67562e37751aa0f12b08af41
+GIT binary patch
+literal 843
+zc$|$=&rcIU6#k|_SExTgQ9wnI13^t(joxZZl$J<RgtV2I^fcWL%iwgT*_|c!?$vPj
+zq%rY^SB)Y50sb8p{tM%qEm%x8(Zjr%_ult?@4cD%@$1`n01q+mVb;S94|5D&Tf{LB
+z1;gaht;!DH<-X!N^lLVfIxI3wJki=%Zl%#BvBeW*8K!&tpL%;=j^4dFe1Fh8*!%hQ
+z?cx5%qYs}M@?m6>PMpd$PU$Tx9>*j%T9cvXHi@X>R0ibH?Z<@jI=rh4Z!z4@!rVzC
+zul-%FWGijW-{=#Hjy+a0Nfd|`si;WdWg@n@x$77VGu1>}*%q5JmQ5uFvr)&hr|R%O
+z3BS&xP*{>3p>hc+E@b1%O0<Qx^=?NHIKNh|KU*&mYh|@up?yA^RTY*<bRy2;KOh@M
+z$)M}5r~2Y~eRZwOa5I}yGC|^+5v}6MTz}oxG7W4aF14GhaGVgWr(K2zmAK=czG;m0
+z^_EZjtG+pgnaJ;7>E?+~8cY96Vi+HEyx!aq0sW`B%pnGkv&g`ZqcueTcW9Vl7$fB6
+zofpHSz!{7ZAPqFgjM2)WK#8+iiF35hr>6@Tr~MuYPLSZm266(IFzL)?TyY_RDNJLA
+NP*=&l)&L7|{Wp4U_0IqR
+
+diff --git out/production/classes/springboot/nf/book/web/BookController.class out/production/classes/springboot/nf/book/web/BookController.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..2902564905b352942facf8a5920b009af7708857
+GIT binary patch
+literal 4489
+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
+
+diff --git out/production/classes/springboot/nf/book/web/TestController.class out/production/classes/springboot/nf/book/web/TestController.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..73b42961013969cac11255daef4140b3cf7ab5a6
+GIT binary patch
+literal 959
+zc$}S5%}!H67(GKNEu{i2_=EqbNWp{=kqE)4gv3?Rgp#^&HTQOk1Gh6}?pz3K6W8oq
+z>LX}kVkGJV_#CkI4UFHkq+r0rxVZP+Z{|DaJ9F;*__g;Pz<rc*$l`J@GPsh()hw>{
+z;W|dMxRJrl3~n*>HH3;P(r&3xGR&6ard4_^Fvf9R=Y$(PZtrs6*(sKfXbTJ@D~Wch
+zA*(7@K_nNoHcmKYbj&bUHg=7-b?a6%<hHRJJdi@iye>j#><$+l0$)s=*;ZE8NVeyp
+z(#kzzNR=k44BbnnMkWW!O3P<SBan7g&@_f(*@Pmh3afm5xY+GpDH=b1+L5+pz*lAL
+zmW+1RM3J-$o<J)M!=;Jxy4Vst5_*kSoF^~*?HFDtP`Y;f1S@hgA*E%}Y__TCEfFQ;
+zC{5|<8bhvP5*x~=%G(_J)5nw_&2Z<`X|a=58n@Gw{Fw7R&Y(Y!UgQ`G)3ej_59aU9
+z&)j{oxj7Y@2IaN??ft>->;1hq2fJ^7etnn0SRS`APDbJ+3}qbGlZavLpK@XtJPPM|
+zur5Q2Z00|1jh{|wR8*tsW0)(Q4E^NFDSrl|bh)#1*%`Wg284Z7^$_L>y9g;BdJj;=
+z2^nE}@-x`S*7o3GGl*QEcfQ?#B8FO`!#GP_p8Oc8)?Q)q6S|72V)qxMQ+QGA`Op!{
+k5rV$@N$N<fa46<|c_-)SIsXzY#s%shX|XSMTwely0~Z_r00000
+
+diff --git out/production/classes/springboot/nf/book/book/validator/XuehaoValidator.class out/production/classes/springboot/nf/book/book/validator/XuehaoValidator.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..7fe375658cec5ec894daa84263ac4966b074666e
+GIT binary patch
+literal 1508
+zc$}S7OHUI~6#i~s(+<N!3cf{A)V4fE1a(nDQb}CZM^aObyW29tg)&2?w*>tGN+KIK
+zMi(rN8xo@nG%VDeiN6Dg{t4o_Gt(lEkmBZ^d%rp7`_B31&ivY5{{~<bw{+;}OW-oD
+z#Bo(e3TX`)9SQVn7*KIg!;l73!!?H3n6QN$X9%a#MTW?PGifoj=Y?(EtId@x_aQG;
+z2<gl_WnL+ASEzFUM&z`pGK}P_^RBR`N{%B<`>9EB)?XHQMND$(xaQ-UHO-x3{hVdc
+zm9QY-IWY~Un&!x=KD)|}U6n2uw#?bKBe@ig&5&uHg+UWluOEinsr(FI;AVx}Q)WRb
+zhOCDy*6WDfoM=ck#vn*qi!z&j!Vsm@n&;F$F48LdnKbE<h#6W7l9y-i^7+8?UA^8f
+z%~)l5^j`b^CE*PN%^fd2mlFjsWpi0`Nq6BtWyhL-CHsvVSNEjg)ZDUlN2uw$_S~Z(
+zRbs$EtA=3%*D=D-v$gbkYvuj#@9+M+T;6*7apUXy#`=rRrIpPOuQr$8Xc#qc12-8u
+z_Uaipfs+iWW;-^JL>I&Gk+1(QZQo6LDb3iqyX$9FY0c5M>(r>e+xJg6<^yU+(nuDc
+zBLkBMz;q*3&$2=vP4@w}KV3vG{V8-Xw9sEAN|8LKwT(_DMW)cq7qCyX389_Vm<P6?
+zgI2>&z%g`EWXh+YI7itbiiyt%b%xgv*&)!q2W^PcNs%1)69W>p>n2QT(`yRo9#ITa
+zjQ9UUG`t#FrG40AYxD3VA|xH7I>mUw&uuWqaSErsR^vE>v!r*<t7ox}9EtP<BBKPU
+vLOs*}1JQvs#8wZPTKDORA&K(=!$^H<#h|Srewc0bi9^({T6=NPi<kZaghGcW
+
+diff --git gradle/wrapper/gradle-wrapper.jar gradle/wrapper/gradle-wrapper.jar
+new file mode 100644
+index 0000000000000000000000000000000000000000..1a958be6420a4dd04b588fe4b31eb5d7ff8748c2
+GIT binary patch
+literal 54711
+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
+IfBW?R08Nzs+5i9m
+
+diff --git out/production/classes/springboot/nf/book/book/validator/Phone.class out/production/classes/springboot/nf/book/book/validator/Phone.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..29f9bc050777e4de9f3ef5da61e963d96b718ad7
+GIT binary patch
+literal 839
+zc$|$=%W4!s6g@Rbrp?4hqR}L3%wrK>V5_(r5i~QRkeFen4alr&dMa(jnyR6@Iyif`
+z;>MLAD6Z9&AQJolze6*Ag?OuzI1w6jQIC7?Ip;pAzWw_06~GP5dzkfb&chso*AYp=
+zBf&6v;o{0B-{QXFI`SJfmO3gkOx)JmSZ<}!6|uonWf`XXFF*bK_`3h<+0L8oAKNd!
+ze}2C6{$2m=2Zmx4o3xu`a?JyJ%Zeun$&EH-q`6IF$~ct+xq0app}a2dDZ|?g*YYrz
+zGtX0hi!0gAO7m;GgtB9o8YYcHaaSrzQmQ>RT3m4ihM9V*t?Y<(naGwBgVw0v*#l|#
+zpMW3mI1-jrM<`oLf{XdMsuCTcZP4oq0vA`S!M(K#!*KAZR%MvaC)I@|4&8{d^bbhQ
+zC>i$LaOw{q1ou}-bs?WpF=6Uz5$*DRTYt@JnfkRcm)f;8wigiXJ3WT$D@oTqe9IW?
+z>kXgIC%fAo%*1{+(Di+jB+maQhhcnB?^<h9g!Gr@a$6X@%n}1bfz}ZH-JxNcC`QOC
+zIxB%kjzbtFK;~%DR-#qF7zGaJ1&+`<n%$0JoX)ExI6;EPn<xmJz@*zw;*@g<Oko-`
+OggQ;;nI>3>v%dlM<Mdhp
+
+diff --git out/production/classes/springboot/nf/book/service/sms/MeiShengSMSServiceImpl.class out/production/classes/springboot/nf/book/service/sms/MeiShengSMSServiceImpl.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..c95ae2fe9beeb515ad3af1582339030d5e0037f9
+GIT binary patch
+literal 4402
+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
+
+diff --git out/production/classes/springboot/nf/book/book/dao/BookDAO.class out/production/classes/springboot/nf/book/book/dao/BookDAO.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..1cfbe0344cf152b10f8fffc8a3c6f527ad8da030
+GIT binary patch
+literal 334
+zc$_=+Z`VEs1_l!bZgvI^b_Py%1};Vh&fv`Syu^~yqEtqPdY`PsvPAuy#JqHU|D>$c
+z<PvM2{GxRI;)0^gy!5o9#N5>K{Gx3Al*E!m{j7pS{i4)@{Nl`#{Gv*IuY$xNIM2oh
+zq9rLmzeGPTO&>^SLx|k`l++x3Cm_=r$ugh(ymV_jYeojH;QZ2}<W#rJ9H4V}K+0Sk
+z{q;Z!85xvunVFK9uMbtq$RL331x5x_vi!it$iT?J1jNh?Ai%`H0w!4**uXS902T6R
+Aq5uE@
+
+diff --git out/production/classes/springboot/nf/book/service/mail/service/MailServiceImpl.class out/production/classes/springboot/nf/book/service/mail/service/MailServiceImpl.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..218f91222e5c7bab8649e09376541b96503c94db
+GIT binary patch
+literal 1326
+zc$}S6-A)rh6#iyg*itHB0Ywl*pxPG7sGwjlMnYm@QZ%uoiI>|lEd%W?+1>JUsWI`!
+z2OwS<A3z~7MaB34J_lmB@(qk<x=T%<B!r7S-<+8<-}%ltJ3s$^`vG7Q(_us~q9YcD
+zhLI3%D7>jmT$w}*T9ItUD8@oa=@{3+b=+bImkn9U2y;=`46(Fj7rC=)OS4$8jj~v`
+z>=mve_<TKVhT+Qdis{O-$Vx}%N@CVDE!S|RWjYMg4LNecFdben@~&lXa-)8M&sJP(
+zUD{%iXqz8MQ@Rfs0`WwaAvk9(3WoNyG{w_OIVbD|gR(J1(^lRnWer;@-`@<nOOn#x
+zPkX6zmgRD@zzJ8lBkVPq7hWYtj#p7_{iM8FqWocp3d~4yh;KTcUN+VYUNX!g&$x<n
+z=HyP|<Q9YGT1sStli>Q2;WFrD;W$Q-vW%VHaZiX+IqyXuDV(#)C9y$H#;VwP@mMOk
+zUB}89SJ@fj4f!2c*uru*R|WU4%tR1HCqwe=au^2ozw8};*!uJR?XT^fgRM`8uRiYY
+zRe!&GeenJb?MHAMcOsZjW>T3pwClJV!97edgq%t~?-VK}hN*LojG^OykDuk1MV@*)
+zaSpOtW8F-}r|51ldi6u<6to~VD56QNXvo87crP?{H8lp_co?S)JCVh8db1HQT%b==
+z-6QOv*WOHckuX3=QzP3&9w%gkP03xb9a?DU_Je^ITp}Cs0&p2Ug!GQl>tB9J(Luu4
+z9<&#`2s}+igH<%8#;RyejaH#2KO>a-iWUvg@OGWNm*_!SLZqXOlynkV51kBA3Y9SF
+zk@^YMst;FdB4X&Ll}0!FF@S5eS_bQK9uWpq7Pft?kiHu4pm$p5)#|*O&#O`Qls8oG
+H*f8)9u1r`@
+
+diff --git out/production/classes/springboot/nf/book/smsyun/ucpaas/restDemo/HttpClientUtil.class out/production/classes/springboot/nf/book/smsyun/ucpaas/restDemo/HttpClientUtil.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..0903e85a93ba2e9217d26820173dfeaed10c46cb
+GIT binary patch
+literal 2822
+zc$}S9U2_yg6g{2n?#xaG6E+4}jDYfy4G;!IC2kOeg+MR_WD^urbapb?on&@qm=8=;
+z6e+7H-uxH7>dS&s<s%RND9Y254M|9Vgrusc_x8QF&pr3{?f&oSKmP*w0CzR)z)20K
+z@TnY5D>$PegNlZ;IHzG0=jCug4r6lRqKeN{jLYdI6%#5hE4ZTKa}7PXDy3BolbGtl
+zHGHArOI%lQL&ID6O2O9(z7fcsa6BhIDbQIOye5#T_|vvP_qgNP6G^jXhm&T_rKB+K
+zTc&%>3?2EqEzHCXClV-+M?vU#^_uU;hBssIJ7+}AXd&^8#0pF^GD16w&)QAjxDdxd
+z#dT~io{AlJL_iJvD83l^p1{S@_^f%`G+fiG8`W649NCCuaIHun&n?e+u@f%{^pE>t
+z-7o{wYS>1D2vQh}t5n?*+P4w{toYuHQx_Ooqi&^$4J%bJuC7$4eMdwt_N_6pQ~zy5
+z&o)zuEATyOvU6QnSKI5-u{|%)w<5Z8^OhaNj_+}?GYMUpmvv&#)ck3Ntym2+jO>_M
+z=BA0uiPm_=zrfKo`#a6RT?)41`jIX3yqq!#U+P_9$^-^qL{rm_8~${ZMk7@v#nsrf
+z<}R5*S~&`CD)^SQ&1xj3s-J|GJ?hAk>RnwRhh=m+-bTNI?{t``>98;@FtEYBr7icH
+z(NV{&f;k;7nmRl=_y}~|LP&m2Tas9T9y17B$1)|y#w@E+M+C}sCOfA8p~;0nX6|{l
+zkv7$zB=OA9u)v-T6oWu^YI1aFSVAPu1h+|wj_)zAU_r+Z_))=6I_}_S(y~qs==cTw
+z0>iI+_!#Z7*UPn8+lp6-7O@H#o2(LnQ=5e3dmcAuNS92{tlLaTSKW@syeKw3i*#2?
+zgPUzJ&%2a0NS`ZF9xJV_;8!1jzIB?E?3@QT(KA?ZRuaX2lV|iy;<(c?WPOZ~!-{K0
+zk<F%hd>wQzak;nchX{|ohMB-tR&SfNNvCQ12^ktLjlC|29=fag)||cUEnAbTtf$RI
+zCVTlJwv@RerA-;j)JXFSwwZ=Gu%SC<$!h7K?pnL)iW@{~EB3r?B{7S&{z8B&d(%|t
+zw1JMivX8DR#1+>=|I4lq22fuPVCOoVuet+wKfju=Ll}$8vRSYq)!1KZ31?o)#|Cfc
+zZh4~P^kSF{P0Pl+DDw3q|2iOK&*%6Ke;ND=ezON2Lj093@8p<Eg<aUiQD0QRZaM+-
+zcn^CPjm7VL1Zk8#5EG)D5#{V7bhOY}&OAouIvr-EB)4^-rv)V))fV#QTrpeBwV)NV
+zg|33$!WK^6D0Fl37(Ley7PdY_p{!6zX`#26DP~)Ev#b`?C)i$8|3)7lMfqa>2_57Q
+zJ;Jt$KcLYkJ#HWRlfYDV^}BqAb*6#b<P7L$SOtdA%hf(U-?ov9A_Lli{p4bhY#e4l
+zA2QsNl%8jRRqVwL?Bj*F9}NufDl6eOHSbXKE)L-yhHxK8Q-T5#b&E9ZrGB34muWLV
+z3adCkt3fFAvV-%3-2EO=9HMPb(neh)&B+5CNi!j5M>*@@|9!mASts>>!!bTzGqnDd
+q7(b%qI5m6G`4o2)3@i9pL7DgcNRDPF(j0yQhhL2@NBO#KApbwayCaeS
+
+diff --git out/production/classes/springboot/nf/book/exception/BossSayItIsImportantAdvice.class out/production/classes/springboot/nf/book/exception/BossSayItIsImportantAdvice.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..1890c4028de5d893f1d67b0d9bdfa5ce52f38a48
+GIT binary patch
+literal 1479
+zc$}?NTTc@~6#j-nTS^ruA|eQaw}QZULAj|(5e+0o6KXJq_%Pia+JWuvx;tCo-5;bc
+z5H;}!_@j(x+Hwh09+Yi%&e=0(zWL5MU;69!_n!c!F_%Ibx01M>z?~Fg#=UFoy%e$-
+zGv0Uy?qec}$poen;0*C+%2oOWLo7SC&d~bOvn4}kUb*s3R4K~fohUjK$>cptIO`%%
+z=DQJW)nyej%;iHrP;RN{d78VMoa{E2yO#8|@?5^?g<(PLt>~3-rQ&;m7Ou|ORb|Nq
+zhVHU(ZAZSU_<C<mhLNKgK4<e@P~yTDR#|dOXyGVV@K6R-N9t)mkX0pjcv)+oFVj+}
+zZ>-5rkqq@h?QosZW*{nZ#|yT3r1&b8<}Bp5L{)G{xF!DTkmADFiD*HalSC~M)Bzcu
+z{}&&Iwu-r$Vd#8n3@vh(p|>eThW@q4)v6-bRj8=_IoI{HFnctD`KHJ_vdD|dwYfOT
+zJw{xvH9j!(s=|qAoU=_qY~k?}<5{BebCxB;@Fcg+#uyJn45@+_1(tlRj8KOEu7N32
+zY#NtvnKUSafT8d7EEXf>*phaV8<gM$ALr9}fQJb@O5-u6(|CgE1fHfbgITJkmcuaf
+zkD_GgIwtV8xFs!8KwS8~bZv&o>{+RtRZoL4HKwP@EU7sqsaL6mqD0qS$u^Z=QhRlu
+zVemZJFr<ZT=QQOOBTaZqO(^D1mqet`)gngFL4PLZiGi8%(Ar5~oGc^THhuv1m7ErI
+z(HgG>+tE#Hx}JaxddO0N=%p-k*hMS-fYFIe%MZjp9H2GRwvYJaJ`!a1k^F}C7~W@6
+zUyhJdWDVvpkud1vb%X}G@vfq;cH=0np}&?rit894;)CQH;y36W+5oc%h2iD}@W~KT
+O&js)qAaA6GJ^BZ^3WQw%
+
+diff --git out/production/classes/springboot/nf/book/service/sms/YunZhiXunSMSSericelmpl.class out/production/classes/springboot/nf/book/service/sms/YunZhiXunSMSSericelmpl.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..25c294d324a5f0120535bee270744bf044f7fa3e
+GIT binary patch
+literal 2983
+zc$}S9`*#yn5dOAFvuV0WDHI5(6e-vT?TQvD0o2lhw3dRTEl(et?QOH|zT8J4BEFx9
+z3flj{U(ut5Bj@-B_(!SV-GqQNN2=#Ed*|Mn`F7@;ncMy2&)<FrFo@+GcH(>%7h2GX
+zi&<Qf>l-TG%poJs-;(>c<;KXOBsXRjeR7@6LdbP4i}@_d(!^@P0v1)+Idn*8N3O1X
+zcsclZCx-x`iYSLC5$CXk%kptWMMcHCDy}L}PehSF9oP!mCl-t)L$?igUN1(0<<1{c
+zkUtZ<k>!XPE3`_s7<OGRG9t@!Lj{8qUNEnRzBHW+3`bn{f<?U~3^&y03^VeAif+^$
+z^clmB1tFW4q@ZA9*VWJo2OMFAW#P^b#DRTHL2lSIJ-)MO&8{{Hty!8h8@?~K9gk>}
+zW9rw{AclQwQB)LcUS%iGC6Krhx!!7^<e2)ba7}NP*{#M%G=esn!<K7BFDXcM_sl3r
+zkMLN*`U%Swld)40!IVMXB)gtz*fU08$$jlG9hEH-d0?VSV#)I&-JR39F6yBOmMl}~
+ze64;yb}y8zbFo`ISuBcx$F}3!<T4!!mrM+Guddzdlb%KeZi+}i`f}Nb6dYU=%veL5
+zR4jWaw-9>nsnUWl3Ab~?^c>x=t&&kP*b!kQwfcDR)MV8}CQ$NbSt5mGbUXxm?20LT
+z*)`H6s`ykZV}uVx7~9b}VYn%?b4P4TxO~^Xq!$g}Fv~)h3f&?@x|yi;5!(xer2ItP
+zg}|9A8XKk<8Rp_i!%xbR499yau5oTSAFOmx@hR<Tz)oW-oRA%ptLMN0d|$-}JSuu|
+zV2b0Gto`=JMIDfU3c4H4Rv3vuc#;pjSZ$9(8eYI4TX}lwc>j=wedtmE4ZGyJ<1zd*
+zR8EwJ9&~B=5FZgH@)m`wp<kZ#NsL@17?lwTX{gJSX5U~yq|fn6%tXV-_(a908a~74
+z3bs5-$kEucXGK6JWvM%lbZYnlUuyVDdR^D>HEyW*M#H!GjsxGI1vK2mpo&`>z6aC&
+z0i<~U{~8ztZ4dD8Q?UDApsL<d{D*5bF$Ma6>^TKp35ezC({331z86Gd_E_zbsVB@<
+zOUy!H#(@=8^hvK6o8@79-s86HJY<;i<LI&DUmLcb)kg}n$dmnWKch|E4Lkbb+$(HC
+zRzKy*H`ivC37w{CL<eCwa<q6CCpT07nuey<BXrD0-u+lMHh^Xq$!bM5bMI&b%`14Q
+zQ9+%s61#eA`i2qeocm~0IG+BXG}DpA_Q?8PSi4=u*K`-I@kUthS5x3EGZh%JoAy4Y
+zfn&xK>LZ@xB>!sHnPmcsk+Knlg1omlv-?M_dFH{7iBA3$Jj2fc$hoJyn^G&+J^Vcz
+zqMO^EMv7i;`x+_sa@*fXF~F_fNbwxE`x+^pN16gJDL(g8br4OIXwrKJN^g79uSosG
+zZ4+MPGshKZr^_xJfV{{OQw-4!lnXdigL#E(O8P0c>)x5fT2DMXtJ<2Ulny7+N$Cis
+zrUdP!Dw?uP>l}5<?dd{VDKvA*^!|e8f_e{`^LL;YviWR#mPais$epF!N?EJP>nJ}_
+zlh;#jtH~So)`a%Hs<48Mg_fVO=^i==y19MJ3by8nxOD~j6>Q6^`4;6awihx#B3DrJ
+z>I$C9XKpjbR^FM{`3;v!@*F2aU>0e{uab#Yj9>$fVH=K<^;b#x32Me@H;y7+!zE0@
+z#A#f^8RE<kX$m(mjaxXIaOD$W1HTJjCNC;c9AXY5OP?+r<*$X-&3wlwwdAPI>2jUZ
+z<r=3_I>sncjO`{P>Eg=Uo$-tjp_P~ZIL|VSNmi)oFNUJ3m{4(&e@e1U@(GHkGQ>NL
+z*ZGw79_1?W+xkdw>MowHE;}Br{>3Dt%~jiaq;1SxMp{hlnwbAIpEHT?*`#Bo_c`Ei
+Ds&4KF
+
+diff --git out/production/classes/springboot/nf/book/book/dao/AuthorDAO.class out/production/classes/springboot/nf/book/book/dao/AuthorDAO.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..cae48f8461e50ff3f6b7d3fa9f7d24c430420601
+GIT binary patch
+literal 340
+zc$}S2!D_-#5S(YNsTN9qqF49Qo+5%E9!fyaFIdg<H8H*o>x-qw{#FlufFD(i21E*8
+zy09}W%+Br{et-4=Uhx>=AwoAo&!9Wcoaa!fHTX_)-Z2&I9ZeUxU4}Rjb+j!t^KPZQ
+zv7e%AN;xp)C6n4xwpkGUqW6+#muZkRD+`f8enmB}8`wx{3mR47Lo~iRmxy=qFgEDT
+zrP8IHWJUeZQzIOYru~!D;N_NY%0d^h!SmlB25<jL(lIb-)qRIkwa`A}JvwKOjyC>l
+AU;qFB
+
+diff --git out/production/classes/springboot/nf/book/book/model/Author.class out/production/classes/springboot/nf/book/book/model/Author.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..523eeb85e86afc2c64c5579bacc5a481b1c236b5
+GIT binary patch
+literal 1706
+zc$|%tZBG+H5XWb)Eq&m$SfC0Dib8FRa-x6`2niT9Bo&Np`hMH4W%0V#-0d0rtu)b?
+z_`(n1hceFY^@-~dd2zFQyEFg!?abc&`TOfP0Bpft29oeR4O8$!nJs0umDx$c%Ova)
+zFnEi=Oyz=prj|`b+p0LCy-#4_gD)iSusZj6!)8Z9IFd^42#-KsyMM8|%=Ne@nP@WW
+zq=i8bBR1YL!CWd?t4?j7p;KJY4kM5o%UP8!*ICn&*{pl+2y{p^9Osiag!3i0tqQ6t
+zw<>Q7Dt#B-c0$_+6|bw*Fj`vTqoq^=({WnNwvKVSe~2PW5wK^1)tq-!^l(4bq1`TP
+z9rp-KQD2@rE=~@(;PQ|_tXQh!QC^`Wfoz2fcItN;%&k!@mO7l%q;{RUT)p=f<MN#2
+zc?$mlJkq%kAkk*>1iO<fmL~g?@Pf_RVt7x1B{B3=mwE0|@UYNHZ{RRroZMFuCQ8&s
+z-7vjNuPNL;4*E018}HEW#NxI4lJbVqgTsxK6<PjraeLiCf%n4h*UYIzGgZfTo9qo&
+zLeoJHHk2BH#fXdY8b1!%+c)7h+%X{qX%lY1O%t-p%)l)ItJmo=-tJNH&l(r3DPaXa
+z&m?}maWIrHARE4A@NF7L6CXq6(qpziVn(z%J)hP7(-=30&%6hDErOtE7jVnMk>Hpp
+z{{-?)$1I|q(u*0mtFveaxCcu(5?F@&6T#oX_!<gchzx#!M+$-u(c4ho<@Fz6j8bRx
+z>Jr8*YlVE^)mKonpb+?nfkzP_u`tL=B*-ePMS;Y^AZr*?xB^5~UL`I>g2clhrAUy+
+z(ID|K$Wx5jxB?{G2Pt9>V*(@*2HA`N3GPc7*Vf@lU*!EbP(lI4#(=glcIOHpbq5I|
+Y53;D0S)2t~Ht@0Z?3uowifR+!AKcPKjsO4v
+
+diff --git out/production/classes/springboot/nf/book/book/validator/PhoneValidator.class out/production/classes/springboot/nf/book/book/validator/PhoneValidator.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..da36cdc405014aba67e8b7083706dd1b3b0d1abe
+GIT binary patch
+literal 1450
+zc$}S-&u<bz6vw}_6c*N1kRSg3QMFp2v|HQig{HAK@kF!<hJ&|(u5>Ewnq_FJCq37*
+zN3ULti5@U9P2<_WL(cvO#y7h_3vCSbGH>V2o6mdmoj3dQ&-Z-*OSo^qz^xdja65`S
+z2BwkKkuwlOUdN2G1s$_G=5$yLk!9fsxxx_2<|+&mYwm{45HAVGe%x+WZSN_sHpr7K
+zxi#LXa8Iat&p9DCMT=pf)OzU&r(ShkX*tg=vM+*Rn>WM;m#$~6Z@P|M=}(IchRQ3*
+z@tQz|?6`=csxn=3otE^taOA4vxROiZIt;n7Aq=```PDEy%$BzJHn$qwsas{K07c)k
+z)89sLYi*Ema0qfqdq);?&ltiK+V*8S!lGQYAd+GBMBtIyo>aH&nml=JQ->jZpqF(Z
+zoiA#vEb0!IZI6!8{?D|_W8c70omNy+l-;&hvmXi7U8&)onNvGVm^iIt-o#xjklfwR
+zAAarccHh14?!D=L-2J`xR>z`Auizd-Vl;(`^SHn;J!Xw2Qb;q*pR~D$G6(9>C5$8A
+zaLun;(r(hjblbE)69^_;Yn`f*bRe5INwL&1Zt6HyvTV?s$Q;w%xe9L3Z@>V<Df(rE
+z$&#uxo}rmVmML%k8`u~6&=99F;yX<w{Lv4<StQ9aB~x$nDn)B#V_%^qLmf;U01SU2
+zjwm4%<XjNggQ%|z`BZMYq#o`8*^nZHK8+NT_8F7G>VTo)A};ys8ZP4sw8SdWuJ&k4
+x6s_Wo{LBx83mrs8sfUke1XLoVaIHsJ>>p1N^bVr`(x-nk4cGl~l0;Yb=3iR-bU^?B
+
+diff --git out/production/classes/springboot/nf/book/BookApplication.class out/production/classes/springboot/nf/book/BookApplication.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..2ed00f42119a28df43b71bd8f60521f3974b135c
+GIT binary patch
+literal 708
+zc$|e&O>Y`85Pc?ug)RAlBrQoUjdCCy;!BhZ6%s+pY1K-lqKBN!#%xW%M#h`;Z}pU_
+zhyH;4s3@}r351BUhc_C}%zN|feSZ1(AHXF}LgcX@;2^{yJ_h*2Q23&>axI39`gxBb
+z-!XTRVJA{reoe=HX@7|Rh)ybziN&ZVtjhBFVcz{xQ--r>I<ZP8ePbNg15WXtUlX(^
+zlaY#rQ${zbdn}Y@IIQ1BL-8Q^Na%!jT{hYD+QKHpR$WtO2)ib=vAj{4?*0n-MK-`t
+z`<`m2#<HiTiuP-3ZJe(YYb!D~;j=vlR*dDNvG?3>EK+A;qX#NUt>j(bLIQ4i`!Y6B
+zU^so>Xn<N7M>uBKUD){6AIjJ<G~QfdCcDH#FJe=|xE`(YG}m3=T7P8A$={B5=Jv8@
+zThi#v%1wMmj{c17%YkK92?NSFMMiP6@dWnAmy3i2e;A-dSe`W?#0QEc%D3jjSDp+g
+hR&tHM*!a1a4=H9C(9D9Ph;8ino?VZ7sLZvhz$^Q3xJUp1
+
+diff --git out/production/classes/springboot/nf/book/service/SMSManageService.class out/production/classes/springboot/nf/book/service/SMSManageService.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..f72aac6c38fcfccaed3a64f17ee91ae429118cf1
+GIT binary patch
+literal 168
+zc$_=+Z`VEs1_l!bPId-%b_Nbc2JXa^l#tZif}F&XR7M774b3n{2Cm@z(xT*4x6B-%
+zkZ7=Puy0~sVtQ(DYEfBca;jcdVp$?1gLZL2QD$CxQht7keqNeBkj~aGhN#d-*TTpk
+q0MewNlbDyT@1K;Fnq0!h$iT?J!~g<}EI^AHSU@ZWRv^j5zy<*O!YhFQ
+
+diff --git out/production/classes/springboot/nf/book/book/model/Book.class out/production/classes/springboot/nf/book/book/model/Book.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..108fcbe68e787f5ff9f0854315940dcfbd1ac0fd
+GIT binary patch
+literal 1802
+zc$|$?T~8B16unzoO0g=UV*Ef6Q40#|_ZNskQG)?AYWlvkV;O8`$?lZso5pBNRE+wf
+z_+pIlK_1iyF(B%@zoUin<UcT;*<Fh+OQcO_cJACW=ghrl`{UR2HzGPjoz)bjqcN(a
+zV`@0Ah7)RNk5WgJPHGh5X^m=nhl~+J&l)15_nIQpuF=NJc_Dd@CArN9vaCx8QyP++
+z!q%wHNxz{FGt1_-WFp1%o-{y>0UPI;V3r|SI%#C{3`t>O<d{aae{o)s7I#?NdQB^%
+z5Ap$K31IXQBg@l<G%Y;^W@#B*NL%kW<!Ruq0}vUucnYU!-5Txk*gX)m`ceJ)Y!;ws
+zj@h=60qoT5t<l2N{hu=r3twN&-uYC#`=~TARebzp?#qkP>+!<$G@c7nZ;?=Z^KO3p
+zdGW(oVfr4H^E1z8M;|U+c?r@!E|kg<b@vFlpK6U-N^ft2t~5C|`*NcAW^DfHM@8}d
+z4&rkUUMW3aK4S}v8dVy3IcQqyg7&Z~)PQM9U0l;KUw4O`nPyqN%gF;@eLx@j3~}?S
+zc~PhqRCaK|Wv50JiRL6aat3gXR`+tj`tvyy|EhtWs~(vtBbziVuGU^KEC)GE(DWZM
+zr}3z+o?)^F7OPD(FE&}kb~o21{Ci4P6wrRhE9?FNm)#Pz|0JwWEZ$c~RN;tAu0wED
+zc%;fM2f~SNl@dcrmsj8fc$Qh>n7sgNPAm_l=&G-nc`L=vaaGEgDpH$LuF<A|o}I-j
+zC~vmMsh+mRsfuE8T1l(oR6}dxw23yue*bR*Uhjq4TpSo;DM{P$7Z8ON!xU1-5_BnJ
+zVzmNu9KVoa^5T`4S35Bfd$EmJ)#7=rP3veq7IhbBgIcK#Nc#)A1+${SB`|KoO2@2W
+zj<kFx?W1#YgO^NT+U{s@5~z`OV20gj=OXX~g+BPe4T0cYwA%xBB0HqATlP#+Xo0%g
+zi8cYV(>bBe&GJrAPi~pu5o!()QsEbp2o%yndxC^i_=W5RrgaG+ZeKLyw3da0%0j~L
+zeM0sH3TboHyFx1PRYG=8QrIu#5HN?A5aOCa1H=A+ibVVsITk47038gfNW?Fs1DKOb
+R2yyKef>?z)TsGbjqTj=ejkEv&
+
+diff --git out/production/classes/springboot/nf/book/service/mail/service/MailServiceAdvanceImpl.class out/production/classes/springboot/nf/book/service/mail/service/MailServiceAdvanceImpl.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..a4c7a99e76641b74ba640874568d27b7d3c5b098
+GIT binary patch
+literal 371
+zc$}q>F;BxV5QX10X#ye8ij|2C81TXdsz69cNCAeT?v87Ui(^+#n*YUw#J~^WM<FgL
+zVq(LVp6`2lcPIJt>-_`38O9kR?55aDF(M=v#+hb9h>nhDg!tOeHDOd3r|;KQsl%fz
+zEj#;#SJKX8FdhGxar10y!evpff^mz|`$o7Y!S9Qxb!d&!qLRk`!X3kOQ(w(n>6E^$
+zR`#5bP5nA3ePg<@2Y<&-m$H>PVhjnB|7|3UyJ5mgw-68IQmY1s81Tn*hxqaq)`Us)
+e3=B`+K(Aa3kg_Jd8DWbx-vqFYtZ(1xQ~5XWQC`;o
+
+diff --git out/production/classes/springboot/nf/book/service/sms/utils/Commons.class out/production/classes/springboot/nf/book/service/sms/utils/Commons.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..a7e2b4ac7db5e945e84a62d1b0c0aae4df4c771c
+GIT binary patch
+literal 1723
+zc$}4#TXz#x6vzK3Ni*qmplwR2r9}|1rb(MAy>PKmr5B`{1~jx->uoYQCIiV#*31Oq
+z#V0?A%NJkarR{>Xc=W+%zl>|C_&<{p#0FhvtvP3(J^S)Id+*6Fe?EBzU>;xV7{bLA
+zF6p?8cXbS4QAt;Hq;XZlk`4_Qb-ai7)w^pcEGx~5I;<*bO-a`^e4zFl8rC&@D3HA3
+zxK6kv5YJ3*2_#m$iWKNCIIb+V8fEF<w#s#C(gn}9>RXoYsPlm`5!ReQAYTZYzT;NQ
+zo)?<#HzxOcW+46hjxEig5tyyesR!nY*JyZduqe>ms4T2HRT+c=mokOB)_u#YTW-}X
+zg(}YCVa?=W6_EqqR%BgXX?D%>1IhTYMn&Lc+a{29%Xh+u=7tOct18<JG#6zW?ko%F
+zYY%MM3>|W6_((%Rps)Nel(RSF0|pm3p4nOM3L{tu;qX~!sDSZC4_Pg@oO(t2G(J)a
+zE&JYv)r<<s=CLi*656fGl@5A2P?uC`byt4d(d#9z<=gVQqk3Q*lr^ui890Vv`fRK&
+zXxK1N#7zUY@UekUP%`iiG6Ey7!P0Qsz$Uf~+`*^3$Bcn(d}d$=pBwl>Ew}Kcz`#G<
+zRnD&jrvA?iyb|VS`L48it%+BARP;(MyLPQ!^?0l`I*k!H7a2O9x#<S2X4CUSSy^*!
+zufqI)GaLJtp0ll08LqoQXt_44c)rUNPX5Qxq!?kDvk|DN=;E&CDOov4msE43G=nb<
+z*WFN7CA-@fdhPk5pTKZtz3YS}>(Z@;wdhmjkR`2VQ@R}P>DRM&9X@8;q^rMT1-$vO
+zOxI+o(0jp?$VA{Hyg`>lTX>6qKtoW!1cVwuuE%*YxeM++**%EI6k-_Rnv9eh-r#Dq
+z4KRum+<P&Gaat*7i8#Xn!|B*Q=Xold+eKm*J;mvLBp-Ex9i<tVJ;}TS%&dZD+m1Mi
+zHzTTHoT9{np&zG78>3|p&fqM4&qY8nyp0Ly>ialge?py#vh)<%_8wA&_|@_3vmY^)
+z9iJP-^Y8Z2Tb$m7p7;TJF5R~a<4%s}BTD!_CVqPUD|wG9&UnOm1}UziTu(6jSai{|
+zB+Qa+j=Ia_dci(MX_CZo5}DNG$U>5c7>sZMQ<x@ao~Jb8e?Zq@ir;Zc!_052NH5NJ
+z%2;DORiWYR&q!x?(ZBH&1KU%%Jq$h)FY(gRW%FET=swGW&PO<>`M#GJvrHX}N;%gl
+X>U>nxd=x_rMU_<jpWw3)_2<H0kimqA
+
+diff --git out/production/classes/springboot/nf/book/exception/CommonAdvice.class out/production/classes/springboot/nf/book/exception/CommonAdvice.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..f1f8b700afa5e139e5c372d7c590b666a6ba5355
+GIT binary patch
+literal 1510
+zc$}?NT~8B16g@*rTT2xvA|QxTzgoV=4^X6PQUSw5(F6>}5Fe(yLp!kDt-G@Y-~B=Q
+z0#OrxfIrH3r!CN6Lp0K+bMM}{bLQN8&-Ul9Z$ALcVKIpmZY6L#jyp+2jC<GEY!W$4
+z8gHrx)0jzMHVz)gJ%-p*<tqK0A(G8)GDMd=TQc+(l`CI`)spnzh>}B*bkVbfvnhOK
+zo?F4FuBd=vsu<LK<(5mHr@6b$$?kHwZ^@cgp39fKYSnWKc3oLA&(L2HuI<Q`YE6G!
+zmqF-ghELg|=a;#t39BNxCA4sqD|jINx+C>m&6jm0_jpC?8egSlqq(szKZG*S`NrWU
+zhizX}<(}v7@=)<LD#pndcSK!qN4RCaazrYhYm07ZbCRgV{U#v8v;X45&|NiGGmM{2
+zjiF2KGYod5$S|@Vx>{A`rV11_yx_W?7G{r{zSt3YPnLK|xi%NaxhIILjmG<iUR^jL
+z4RE0&h%G$cHlAfFzhGH12->;zw#IlAVn}Xyp>N5T%1EQXed@EOynms*<hk1S93tD2
+zO$rxri9{-WpJC|q=w5`%u_f&!wkW~#-!G<c9}nVqn4-60K7~h^kK=I)3wT1sH*y$q
+zf2~@EzLP6omv*E@5{ZdgO}aM2O!iML{VA^&N9x=_hhbCq%2KaUk42fTyPWN)&xH1x
+zKEv2qx?)HP+b(FzErpu!mOD@^o-T<<pD9*Mpojin%qIe72108uJ#n&(Z1?0L*cWoT
+z&_`>m5$r)ft*K@L(ik911!9o0%wZQ%`U08hbk}!8-W?*E?mj?l<^XXr2S|Lyg$UlJ
+zlb?@~lVm}-*9p&{Pc{)+=*GK(p~j6F3}d8`oxxR%67eze4e@LA8{Y!62!-LsIq(@G
+Vq~UYmGfMjt4eU%~*Yxow@EZaFiq8N5
+
+diff --git out/production/classes/springboot/nf/book/service/mail/service/MailService.class out/production/classes/springboot/nf/book/service/mail/service/MailService.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..3a09125c7d9d20183759e9ca646deb63563c175f
+GIT binary patch
+literal 244
+zc$_=+Z`VEs1_l!bE_MbEb_PyH2Cm}Nyp-U~+=84`Mg|KFpRB~PME#t^ymbBGlA_GK
+zbZblzO-v!EInMdHIjI#uPH=u{QF5wVCdg0$-^9$E;MAhB%;Z!(kWNMh<KhC4wxs<0
+z68*e1eIT8!Ukp*9p9@qC=OAeX8icUcKPf9UxrB|8fsuiU0R)&>7#WxuSQr?9G%JV(
+K%CLdN8Q1}{heV<P
+
+diff --git out/production/classes/springboot/nf/book/smsyun/ucpaas/restDemo/HttpConnectionManager.class out/production/classes/springboot/nf/book/smsyun/ucpaas/restDemo/HttpConnectionManager.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..c28ac6f3a8253df0835e153369dd1a4bc076673b
+GIT binary patch
+literal 2744
+zc$}?PZBrXn6n<_9EG$cb@KOqG1zST1l$BO37NpWp3U-qsK`g%CESF?qvzyu7DEaPx
+z@oVc#U}Q#T><1nHjb9x{J$Fe>r2%Z~WVkQq-gC}#o^$qafBp0O9{{|Dl8QmhwjqkQ
+z<S?h;rb_dy9Ntziui_R`DikazxUE9PqKZ3MYQ?gg-)Y5N1%`?)sc{Es1sN4RxF?4d
+zIlQZ46<HN)cux-N3f^akm_>#;!}anyFLARV^g<AnbgNjhb<=emeZ_Tc%gHa1G-X@D
+z2~s2#W?;Eanmar%ycvdW^Qe$v-tbEvY35uv(48%v<{jNH`jxVym(3FAzU~P>SP(^5
+z53M(_+cIl8RxroVlo(rQh^E|4!O&?~j>wdYIpMAGoK2FL;hNlD=bk0^HDNR;SUy90
+zUIfdIA8^McVJb29Kj7-f2Hf09^HS)Fh*WT&97?bZjNBxQZT>meePNb8E2!uhH(NFf
+z^LE~)ZJ~I3*Ayjbl592mzU^-@%s!QbkbmDbcSN8YydpfYSqGC1<%`@5T(3fA`urya
+zt0HgtfmdM|X=HZG%IlA>kZ%9K>8q3;Q+WS0<&!}lhjwm;YFohu)iH5N`KebI!!^oK
+z<8lly=qcOvg@jjEq7c-=6DFpf$3WICd!|^lWZZ)d6F(_)s^KLJYZ$_L4Hs~c;pPjL
+zlZGUQDeT5X`nI0U8pjZ+-~$aG;v<RaV}|&Dt2qsyU|7MY8a@N3`jg&#4LO)p!g9kf
+zeNt9eY;HNnAkwf2;&1jv`iYEYOG6$74HgOtwl(a)R#4R7z?CkpGjxT)+T6+O_j220
+zfT5=@S}S<&7l$=`<M}@;h5>1ES9j=YJr#l2C2uO#?Sk0iWt%qVsc4V8O2u^{ar~)l
+zY@M=%g0QKqd0h6X_$eRWt+Hir$~N0#dV&X}k!<kYG*%)&tzIaS1~Ro?74nu1WG&Aa
+zN6DRe2HVX!xn#I>Iv~1zIdSSG$xyp5f;8V<a|3QunI@K{u+RS|1$4F|yj8a>sTe)!
+z^RHK)FWD>mflL1ar%vfQb**}!SDs0Mp_kx3RqYIBLk1lEgioYFI!*?Q5qd-n(laAM
+zKk8kyQf2$1ISM9Q8jT~go2GLnPm_CKN%kEg4@0e&LyZWHU8E7iC0c2RH*q<%(}q_N
+zuUYvr^aJQ$qv>ZPV$qGeKZVPl14K9W(EJUWXupS+<fE_9Y9t?x|491>q|{EP<D?qL
+zSU4ZLzDUm=;4E4&KsU~zn}Qjl-v|XUPVh(Rv=dE#U_?QJ-bZ7<6UvC}tTjZx(Y}f1
+z3^NX(Z0w_T4{ZkdPES<Pz7H+dF<!-)Smyz{2w*p@tB9qO2k6<D*h4Q7k^B~sZv0Y3
+zpImkIR?+{EtVhs6oXAI-1UgCZKp{kkjSeK}Bu-#Q(MMQ@2<jvza06GcK&v$LkjEtH
+zcGKTDok`X*HAW*a=;kE(n4~y#yh@U(8t;dat0a-3_aO2Yxr!*brqD~0DR^C`^$lFF
+wg}+owNY_5jO7v9>RB_H2e{dwZS8;~)C8+*dvJau0q1`mzBx}@AL!Ftw0UAX7o&W#<
+

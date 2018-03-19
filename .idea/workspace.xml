@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2dfb2e72-432a-4c6a-9fc4-37c8bcf16e6f" name="Default" comment="commit book">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/gradle/wrapper/gradle-wrapper.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/BookApplication.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/book/dao/AuthorDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/book/dao/BookDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/book/model/Author.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/book/model/Book.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/book/validator/Phone.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/book/validator/PhoneValidator.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/book/validator/Xuehao.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/book/validator/XuehaoValidator.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/exception/BossSayItIsImportantAdvice.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/exception/CommonAdvice.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/SMSManageService.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/SMSService.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/Sender.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/mail/service/MailService.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/mail/service/MailServiceAdvanceImpl.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/mail/service/MailServiceImpl.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/sms/MeiShengSMSServiceImpl.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/sms/YunZhiXunSMSSericelmpl.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/service/sms/utils/Commons.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/smsyun/ucpaas/restDemo/HttpClientUtil.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/smsyun/ucpaas/restDemo/HttpConnectionManager.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/web/BookController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/web/SenderTestController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/web/Test.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/classes/springboot/nf/book/web/TestController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/Springboot.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/README.org" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/build.gradle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/gradlew" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/gradlew.bat" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/ValidationMessages.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/ValidationMessages_zh_CN.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/application.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/messages.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/templates/book/add.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/templates/book/add_author.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/templates/book/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/templates/book/update.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/templates/layout/book.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/templates/layout/two.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/out/production/resources/templates/vue/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/BookApplication.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/book/dao/AuthorDAO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/book/dao/BookDAO.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/book/model/Author.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/book/model/Book.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/book/validator/Phone.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/book/validator/PhoneValidator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/book/validator/Xuehao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/book/validator/XuehaoValidator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/exception/BossSayItIsImportantAdvice.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/exception/CommonAdvice.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/SMSManageService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/SMSService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/Sender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/mail/service/MailService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/mail/service/MailServiceAdvanceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/mail/service/MailServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/sms/MeiShengSMSServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/sms/YunZhiXunSMSSericelmpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/service/sms/utils/Commons.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/smsyun/ucpaas/restDemo/HttpClientUtil.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/smsyun/ucpaas/restDemo/HttpConnectionManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/web/AuthorController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/web/BookController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/web/IndexController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/web/SenderTestController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/web/Test.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/java/springboot/nf/book/web/TestController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/ValidationMessages.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/ValidationMessages_zh_CN.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/application.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/messages.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/templates/book/add.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/templates/book/add_author.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/templates/book/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/templates/book/update.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/templates/layout/book.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/templates/layout/two.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/book/src/main/resources/templates/vue/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/unnamed.patch" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="25">
+                <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="676" />
+    <option name="width" value="697" />
+    <option name="height" value="745" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource ProjectPane="true" />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Springboot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Springboot" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="小应用程序">
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="应用程序">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="远程">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2dfb2e72-432a-4c6a-9fc4-37c8bcf16e6f" name="Default" comment="" />
+      <created>1521395137212</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1521395137212</updated>
+      <workItem from="1521395138703" duration="499000" />
+    </task>
+    <task id="LOCAL-00001">
+      <created>1521395395339</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1521395395339</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="499000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="JRebel Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="E:\Springboot\Springboot" />
+    </ignored-roots>
+    <MESSAGE value="commit book" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit book" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="25">
+            <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

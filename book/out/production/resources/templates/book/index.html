@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/two"> <!--此行继承了book.html模板-->
+    <head>
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+</head>
+<div layout:fragment="content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>价格</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(books)}">
+            <td colspan="5">
+                书名为空哦，请添加新的书籍<a th:href="@{/book/add}">添加</a>
+            </td>
+        </tr>
+        <tr th:each="book:${books}">
+            <td th:text="${book.id}">id</td>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.author.name}">author</td>
+            <td th:text="${book.price}">price</td>
+            <td>
+                <a th:href="@{/book/update(id=${book.id})}" href="#">编辑</a>
+                <a th:href="@{/book/delete(id=${book.id})}" href="#">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="#" class="btn btn-dark" th:href="@{/book/add}">添加新的书籍</a>
+
+</div>
+</html>
